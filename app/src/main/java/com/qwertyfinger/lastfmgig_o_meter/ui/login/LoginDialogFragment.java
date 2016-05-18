@@ -49,7 +49,7 @@ public class LoginDialogFragment extends DialogFragment implements LoginMvpView 
         builder.setNegativeButton(getString(R.string.cancel_button_text), null);
 
         AlertDialog dialog = builder.create();
-        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         mPresenter = new LoginPresenter();
         mPresenter.attachView(this);
