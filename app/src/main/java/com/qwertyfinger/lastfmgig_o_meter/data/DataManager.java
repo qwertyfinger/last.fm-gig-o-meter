@@ -66,6 +66,10 @@ public class DataManager {
         mPrefHelper.setArtistLimit(limit);
     }
 
+    public int getArtistsLimit() {
+        return mPrefHelper.getArtistsLimit();
+    }
+
     public Observable<Boolean> checkUser(String username) {
         return Observable.create(subscriber -> {
             mLastFmService.checkUser(BuildConfig.LAST_FM_API_KEY, username)

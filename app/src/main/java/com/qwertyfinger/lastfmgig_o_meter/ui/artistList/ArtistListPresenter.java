@@ -41,6 +41,10 @@ public class ArtistListPresenter extends BasePresenter<ArtistsListMvpView> {
         return mDataManager.getUsername();
     }
 
+    public int getArtistsLimit() {
+        return mDataManager.getArtistsLimit();
+    }
+
     public void syncData() {
         mCompositeSubscription.add(mDataManager.syncData()
                 .observeOn(AndroidSchedulers.mainThread())
