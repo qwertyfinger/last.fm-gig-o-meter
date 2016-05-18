@@ -99,7 +99,7 @@ public class LoginDialogFragment extends DialogFragment implements LoginMvpView 
     }
 
     @Override
-    public void showNoConnectionSnackbar() {
+    public void showNoConnectionToast() {
         Utils.showNoConnectionToast(getContext());
     }
 

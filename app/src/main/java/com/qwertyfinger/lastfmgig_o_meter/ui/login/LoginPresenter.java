@@ -52,7 +52,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
                             if (getMvpView() != null) getMvpView().showErrorToast();
                         }, subscriber::onCompleted);
             } else {
-                if (getMvpView() != null) getMvpView().showNoConnectionSnackbar();
+                if (getMvpView() != null) getMvpView().showNoConnectionToast();
                 subscriber.onCompleted();
             }
         });

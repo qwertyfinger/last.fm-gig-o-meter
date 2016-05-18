@@ -45,6 +45,7 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
     private Parcelable mListState;
     private FragmentListBinding mBinding;
 
+    private MenuItem mAddArtistsItem;
     private MenuItem mSyncItem;
     private ImageView mSyncAnimation;
     private Animation mRotation;
@@ -92,6 +93,7 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mAddArtistsItem = null;
         mSyncItem = null;
         mSyncAnimation = null;
         mRotation = null;
@@ -103,6 +105,10 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
         super.onCreateOptionsMenu(menu, inflater);
         mSyncItem = menu.findItem(R.id.sync_item);
         if (mSyncInProgress) startSyncAnimation();
+        mAddArtistsItem = menu.findItem(R.id.add_artists_to_sync_item);
+        if (mPresenter.getArtistsLimit() == mArtists.size()) {
+            mAddArtistsItem.setVisible(false);
+        }
     }
 
     @Override
@@ -176,7 +182,10 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
         }
 
         int end = firstNonSyncedArtistIndex + number;
-        if (end > mArtists.size() - 1) end = mArtists.size();
+        if (end > mArtists.size() - 1) {
+            end = mArtists.size();
+            mAddArtistsItem.setVisible(false);
+        }
         mPresenter.setArtistsLimit(end);
         if (Utils.checkConnectionSnackbar(getView())) {
             mPresenter.syncArtists(mArtists.subList(firstNonSyncedArtistIndex, end));
