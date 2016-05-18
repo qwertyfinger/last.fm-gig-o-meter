@@ -1,5 +1,9 @@
 package com.qwertyfinger.lastfmgig_o_meter.data.local.sax.converter;
 
+import com.qwertyfinger.lastfmgig_o_meter.data.local.sax.parser.LastFmParser;
+import com.qwertyfinger.lastfmgig_o_meter.data.local.sax.parser.SetlistFmParser;
+import com.qwertyfinger.lastfmgig_o_meter.data.model.setlistfm.SetlistResult;
+
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
@@ -17,14 +21,13 @@ final class SaxResponseBodyConverter<T> implements Converter<ResponseBody, T> {
     public T convert(ResponseBody value) throws IOException {
         try {
 
-            /*if (mResponseClass == ReleaseList.class) {
-                MusicBrainzParser<T> mbParser = new MusicBrainzParser<>();
-                return mbParser.parse(value.byteStream());
+            if (mResponseClass == SetlistResult.class) {
+                SetlistFmParser<T> setlistParser = new SetlistFmParser<>();
+                return setlistParser.parse(value.byteStream());
             }
 
             LastFmParser<T> lastFmParser = new LastFmParser<>();
-            return lastFmParser.parse(value.byteStream(), mResponseClass);*/
-            return null;
+            return lastFmParser.parse(value.byteStream(), mResponseClass);
 
         } finally {
             value.close();

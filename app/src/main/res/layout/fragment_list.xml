@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <ListView
+            android:id="@+id/artistList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fastScrollEnabled="true"
+            android:fastScrollAlwaysVisible="false"
+            android:smoothScrollbar="true"/>
+
+        <TextView
+            android:id="@+id/noArtists"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:text="@string/no_artists_message"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/noUser"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:text="@string/no_user_message"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:visibility="invisible"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>
+

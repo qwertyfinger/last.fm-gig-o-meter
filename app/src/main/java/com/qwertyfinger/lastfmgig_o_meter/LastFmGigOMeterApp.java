@@ -1,32 +1,41 @@
 package com.qwertyfinger.lastfmgig_o_meter;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import timber.log.Timber;
 
-public class LastFmGigOMeterApp extends Application {
+public class LastFmGigometerApp extends Application {
+
+    private static LastFmGigometerApp sInstance;
+    private RefWatcher refWatcher;
+
+    public static LastFmGigometerApp getInstance() {
+        return sInstance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        if (sInstance == null) sInstance = this;
         AndroidThreeTen.init(this);
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
+            LeakCanary.install(this);
         } else {
             Timber.plant(new CrashReportingTree());
         }
+    }
 
-        RealmConfiguration config = new RealmConfiguration.Builder(this)
-                .name("mainRealm.realm")
-                .build();
-        Realm.setDefaultConfiguration(config);
+    public static RefWatcher getRefWatcher(Context context) {
+        LastFmGigometerApp application = (LastFmGigometerApp) context.getApplicationContext();
+        return application.refWatcher;
     }
 
     /** A tree which logs important information for crash reporting. */

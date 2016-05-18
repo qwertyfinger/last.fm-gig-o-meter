@@ -1,23 +1,25 @@
 package com.qwertyfinger.lastfmgig_o_meter.data.model.lastfm;
 
+import android.content.Context;
 import android.support.v4.util.SimpleArrayMap;
 
-import com.qwertyfinger.lastfmgig_o_meter.data.model.realm.ArtistRealm;
+import com.qwertyfinger.lastfmgig_o_meter.data.model.db.ArtistDb;
+import com.qwertyfinger.lastfmgig_o_meter.util.Utils;
 
 //TODO: think about implementation of artist page caching
 public class ArtistLastFm {
 
     private String name;
-    private String id;
-    private String wiki;
-
-    private int playcount;
-    private int listeners;
-
-    private boolean onTour;
+    private String mbid;
 
     private SimpleArrayMap<String, String> images;
+//    private Target target;
 
+    private Context context;
+
+    public ArtistLastFm() {
+        context = Utils.getAppContext();
+    }
 
     public String getName() {
         return name;
@@ -27,44 +29,12 @@ public class ArtistLastFm {
         this.name = name;
     }
 
-    public int getPlaycount() {
-        return playcount;
+    public String getMbid() {
+        return mbid;
     }
 
-    public void setPlaycount(int playcount) {
-        this.playcount = playcount;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public int getListeners() {
-        return listeners;
-    }
-
-    public void setListeners(int listeners) {
-        this.listeners = listeners;
-    }
-
-    public boolean isOnTour() {
-        return onTour;
-    }
-
-    public void setOnTour(boolean onTour) {
-        this.onTour = onTour;
-    }
-
-    public String getWiki() {
-        return wiki;
-    }
-
-    public void setWiki(String wiki) {
-        this.wiki = wiki;
+    public void setMbid(String mbid) {
+        this.mbid = mbid;
     }
 
     public SimpleArrayMap<String, String> getImages() {
@@ -95,24 +65,97 @@ public class ArtistLastFm {
         return images.get("mega");
     }
 
-    public ArtistRealm asRealm() {
+    public ArtistDb asArtistDb() {
+        if (mbid == null || name == null) return null;
+
+        ArtistDb artistDb = new ArtistDb();
+        artistDb.setMbid(mbid);
+        artistDb.setName(name);
+        artistDb.setImageUrl(getExtralargeImage());
+
+
+//        TODO: implement screensize-dependent image choosing
+        /*if (images != null) {
+            artistDb.setImageUrl(getExtralargeImage());
+            File image = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), mbid + ".jpg");
+            if (!image.exists()) {
+                downloadImage(getExtralargeImage())
+//                        .retry(3)
+                        .doOnError(e -> Timber.e(e, "PicassoException"))
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe();
+            }
+        }*/
+
+        return artistDb;
+    }
+
+    /*public ArtistRealm asRealm() {
         ArtistRealm artistRealm = new ArtistRealm();
 
-        if (id == null || name == null) return null;
+        if (mbid == null || name == null) return null;
 
-        artistRealm.setId(id);
+        artistRealm.setMbid(mbid);
         artistRealm.setName(name);
-        artistRealm.setSubscribed(true);
-        artistRealm.setListeners(listeners);
         artistRealm.setPlaycount(playcount);
         artistRealm.setOnTour(onTour);
 
-        if (wiki != null) artistRealm.setWiki(wiki);
-
 //        TODO: implement screensize-dependent image choosing
-        if (images != null) artistRealm.setImageUrl(getExtralargeImage());
+        if (images != null) {
+            File image = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), mbid + ".jpg");
+            if (!image.exists()) {
+                downloadImage(getExtralargeImage())
+                        .retry(3)
+                        .doOnError(e -> {
+                            artistRealm.setImageUrl(getExtralargeImage());
+                            Timber.e(e, e.getClass().getCanonicalName());
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .subscribe();
+            }
+        }
 
         return artistRealm;
-    }
+    }*/
 
+    /*private Observable<Void> downloadImage(String imageUrl) {
+        return Observable.create(subscriber -> {
+            target = new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    FileOutputStream out = null;
+
+                    try {
+                        File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                                mbid + ".jpg");
+                        out = new FileOutputStream(file);
+                    } catch (FileNotFoundException e) {
+                        subscriber.onError(e);
+                    }
+
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 60, out);
+                    subscriber.onCompleted();
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+                    subscriber.onError(new Exception("Could not download image: " + getExtralargeImage()));
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            };
+
+            OkHttp3Downloader okHttpDownloader = new OkHttp3Downloader(context);
+            new Picasso.Builder(context)
+                    .downloader(okHttpDownloader)
+                    .build()
+                    .load(imageUrl)
+                    .networkPolicy(NetworkPolicy.NO_STORE)
+                    .config(Bitmap.Config.RGB_565)
+                    .into(target);
+        });
+    }*/
 }

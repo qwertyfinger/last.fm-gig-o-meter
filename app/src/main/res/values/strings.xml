@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">Last.fm Gig-o-Meter</string>
+    <string name="sync_item">Sync</string>
+    <string name="sort_item">Sort</string>
+    <string name="log_into_lastfm_item">Last.fm settings</string>
+    <string name="about_item">About</string>
+
+    <string name="login_dialog_title">Last.fm Sign In</string>
+    <string name="sign_in_button_text">Sign In</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="username_hint">Username</string>
+    <string name="wrong_username">Wrong username</string>
+    <string name="sync_finished">Synced successfully</string>
+    <string name="sync_failed">Sync has failed</string>
+    <string name="ime_signin_action_label">Sign In</string>
+    <string name="no_connection">No connection available</string>
+    <string name="error_message">Error</string>
+    <string name="clear_data_fail">Coudn\'t clear data</string>
+    <string name="clear_data_item">Clear data</string>
+    <string name="add_artists_to_sync_item">Add artists to sync-list</string>
+    <string name="erase_confirmation_dialog_title">Are you sure?</string>
+    <string name="erase_confirmation_dialog_message">You\'ll lose all data!</string>
+    <string name="erase_confirmation_dialog_button">Clear data</string>
+    <string name="add_artists_dialog_title">Add artists to sync-list</string>
+    <string name="add_artists_dialog_message">
+        Initially, for the sake of traffic saving only your top-50 artists are in the sync-list.
+        \nChoose number of next top artists to include in it.
+    </string>
+    <string name="add_artists_dialog_button">Add</string>
+    <string name="artists_number_selector_hint">Number of artists</string>
+    <string name="wait_until_sync_finish">Wait until sync finishes</string>
+    <string name="no_artists_message">No artists</string>
+    <string name="operation_failed">Operation failed</string>
+    <string name="no_user_message">Last.fm user is not set</string>
+    <string name="no_artists_to_add_message">No artists to add</string>
+    <string name="no_data_message">No data</string>
 </resources>

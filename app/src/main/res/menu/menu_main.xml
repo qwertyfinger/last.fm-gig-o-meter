@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/sync_item"
+        android:icon="@drawable/ic_sync_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/sync_item">
+    </item>
+
+    <!--<item
+        android:id="@+id/sort_item"
+        android:icon="@drawable/ic_sort_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/sort_item">
+    </item>-->
+
+    <item
+        android:id="@+id/add_artists_to_sync_item"
+        app:showAsAction="ifRoom"
+        android:title="@string/add_artists_to_sync_item"
+        android:icon="@drawable/ic_library_add_white_24dp">
+    </item>
+
+    <item
+        android:id="@+id/clear_data_item"
+        app:showAsAction="never"
+        android:title="@string/clear_data_item">
+    </item>
+
+    <item
+        android:id="@+id/log_into_lastfm_item"
+        app:showAsAction="never"
+        android:title="@string/log_into_lastfm_item">
+    </item>
+
+    <!--<item
+        android:id="@+id/about_item"
+        app:showAsAction="never"
+        android:title="@string/about_item">
+    </item>-->
+</menu>
