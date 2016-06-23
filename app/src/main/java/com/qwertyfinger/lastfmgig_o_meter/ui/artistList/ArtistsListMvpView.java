@@ -10,4 +10,6 @@ public interface ArtistsListMvpView extends MvpView {
     void showSyncInProgress();
     void endSync(boolean isSuccessful);
     void showErrorMessage();
+    void showProgressBar();
+    void hideProgressBar();
 }

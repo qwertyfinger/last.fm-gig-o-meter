@@ -12,9 +12,6 @@ import com.qwertyfinger.lastfmgig_o_meter.util.Utils;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 
-import org.threeten.bp.Duration;
-import org.threeten.bp.Instant;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -105,7 +102,7 @@ public class DatabaseHelper {
 
     private Observable<Void> addArtists(Set<ArtistDb> artists) {
         return Observable.create(subscriber -> {
-            Instant start = Instant.now();
+//            Instant start = Instant.now();
 
             if (subscriber.isUnsubscribed()) return;
             BriteDatabase.Transaction transaction = mDb.newTransaction();
@@ -123,15 +120,15 @@ public class DatabaseHelper {
                 transaction.end();
                 subscriber.onCompleted();
 
-                Instant end = Instant.now();
-                Timber.i("Added artists in " + Duration.between(start, end).toMillis() + "ms");
+//                Instant end = Instant.now();
+//                Timber.i("Added artists in " + Duration.between(start, end).toMillis() + "ms");
             }
         });
     }
 
     private Observable<Void> addTracks(Collection<List<TrackDb>> tracksList) {
         return Observable.create(subscriber -> {
-            Instant start = Instant.now();
+//            Instant start = Instant.now();
 
             if (subscriber.isUnsubscribed()) return;
             BriteDatabase.Transaction transaction = mDb.newTransaction();
@@ -152,8 +149,8 @@ public class DatabaseHelper {
                 transaction.end();
                 subscriber.onCompleted();
 
-                Instant end = Instant.now();
-                Timber.i("Added tracks in " + Duration.between(start, end).toMillis() + "ms");
+//                Instant end = Instant.now();
+//                Timber.i("Added tracks in " + Duration.between(start, end).toMillis() + "ms");
             }
         });
     }

@@ -35,4 +35,5 @@
     <string name="operation_failed">Помилка операції</string>
     <string name="wait_until_sync_finish">Дочекайтеся завершення оновлення</string>
     <string name="no_data_message">Немає даних</string>
+    <string name="wait_until_erase_finish">Дочекайтеся завершення очищення даних</string>
 </resources>

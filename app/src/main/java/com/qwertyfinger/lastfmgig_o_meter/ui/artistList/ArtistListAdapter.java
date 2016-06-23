@@ -66,11 +66,6 @@ public class ArtistListAdapter extends BaseAdapter {
     }
 
     @Override
-    public boolean isEnabled(int position) {
-        return false;
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ItemArtistBinding binding;
         if (convertView == null) {

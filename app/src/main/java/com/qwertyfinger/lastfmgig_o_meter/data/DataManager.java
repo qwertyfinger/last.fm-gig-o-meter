@@ -18,8 +18,6 @@ import com.qwertyfinger.lastfmgig_o_meter.util.Constants;
 import com.qwertyfinger.lastfmgig_o_meter.util.Utils;
 import com.squareup.picasso.Picasso;
 
-import org.threeten.bp.Duration;
-import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 
 import java.io.IOException;
@@ -73,7 +71,7 @@ public class DataManager {
     public Observable<Boolean> checkUser(String username) {
         return Observable.create(subscriber -> {
             mLastFmService.checkUser(BuildConfig.LAST_FM_API_KEY, username)
-                    .retry(2)
+//                    .retry(1)
                     .subscribe(response -> {
                         if (response.getStatus().equals(Constants.LASTFM_RESPONSE_OK_STATUS)) {
                             subscriber.onNext(true);
@@ -89,25 +87,20 @@ public class DataManager {
         });
     }
 
-    //    TODO: test
     public Observable<List<TrackDb>> getAllTracks() {
         return mDatabaseHelper.getAllTracks().take(1).retry(2);
     }
 
-
-    //    TODO: test
     public Observable<List<ArtistDb>> getAllArtists() {
         return mDatabaseHelper.getAllArtists()
                 .take(1)
                 .retry(2);
     }
 
-    //    TODO: test
     public Observable<Void> deleteArtist(String name) {
         return mDatabaseHelper.deleteArtist(name).retry(2);
     }
 
-    //    TODO: test
     public Observable<Void> clearData() {
         return mDatabaseHelper.clearArtists().retry(2);
     }
@@ -136,10 +129,10 @@ public class DataManager {
 
     public Observable<Void> syncData() {
         return Observable.create(subscriber -> {
-            Instant start = null;
-            if (BuildConfig.DEBUG) {
-                start = Instant.now();
-            }
+//            Instant start = null;
+//            if (BuildConfig.DEBUG) {
+//                start = Instant.now();
+//            }
 
             int overallScrobbles = 0;
             int topScrobbles = 0;
@@ -181,12 +174,12 @@ public class DataManager {
             calculateCompatibility(scrobbleData);
 
             mDatabaseHelper.addScrobbleData(scrobbleData)
-                    .doOnCompleted(() -> {
-                        if (BuildConfig.DEBUG) {
-                            Instant end = Instant.now();
-                            Timber.i("Finished sync in " + Duration.between(start, end).toMillis() + "ms");
-                        }
-                    })
+//                    .doOnCompleted(() -> {
+//                        if (BuildConfig.DEBUG) {
+//                            Instant end = Instant.now();
+//                            Timber.i("Finished sync in " + Duration.between(start, end).toMillis() + "ms");
+//                        }
+//                    })
                     .subscribe(aVoid -> {}, subscriber::onError, subscriber::onCompleted);
         });
     }
@@ -208,10 +201,10 @@ public class DataManager {
 
     private Observable<List<TrackDb>> getLastFmInfo() {
         return Observable.create(subscriber -> {
-            Instant start = null;
-            if (BuildConfig.DEBUG) {
-                start = Instant.now();
-            }
+//            Instant start = null;
+//            if (BuildConfig.DEBUG) {
+//                start = Instant.now();
+//            }
             String username = getUsername();
 
             List<TrackDb> tracks = new ArrayList<>();
@@ -251,23 +244,23 @@ public class DataManager {
             subscriber.onNext(tracks);
             subscriber.onCompleted();
 
-            if (BuildConfig.DEBUG) {
-                Instant end = Instant.now();
-                Timber.i("Finished overall Last.fm sync in " + Duration.between(start, end).toMillis() + "ms");
-            }
+//            if (BuildConfig.DEBUG) {
+//                Instant end = Instant.now();
+//                Timber.i("Finished overall Last.fm sync in " + Duration.between(start, end).toMillis() + "ms");
+//            }
         });
     }
 
     private Observable<List<TrackLastFm>> getTopTracks(String username) {
         return Observable.create(subscriber -> {
-            Instant start = null;
-            if (BuildConfig.DEBUG) {
-                start = Instant.now();
-            }
+//            Instant start = null;
+//            if (BuildConfig.DEBUG) {
+//                start = Instant.now();
+//            }
 
             List<TrackLastFm> result = new ArrayList<>();
             mLastFmService.getTopTracks(BuildConfig.LAST_FM_API_KEY, username, 1, 1)
-                    .retry(2)
+                    .retry(1)
                     .subscribe(stats -> {
                         int totalTracks = stats.getTotal();
                         double limit;
@@ -298,23 +291,23 @@ public class DataManager {
             subscriber.onNext(result);
             subscriber.onCompleted();
 
-            if (BuildConfig.DEBUG) {
-                Instant end = Instant.now();
-                Timber.i("Finished top tracks sync in " + Duration.between(start, end).toMillis() + "ms");
-            }
+//            if (BuildConfig.DEBUG) {
+//                Instant end = Instant.now();
+//                Timber.i("Finished top tracks sync in " + Duration.between(start, end).toMillis() + "ms");
+//            }
         });
     }
 
     private Observable<List<TrackLastFm>> getLovedTracks(String username) {
         return Observable.create(subscriber -> {
-            Instant start = null;
-            if (BuildConfig.DEBUG) {
-                start = Instant.now();
-            }
+//            Instant start = null;
+//            if (BuildConfig.DEBUG) {
+//                start = Instant.now();
+//            }
 
             List<TrackLastFm> result = new ArrayList<>();
             mLastFmService.getLovedTracks(BuildConfig.LAST_FM_API_KEY, username, 1, 1)
-                    .retry(2)
+                    .retry(1)
                     .subscribe(stats -> {
                         Integer numberOfPages = (int) Math.ceil(stats.getTotal() / 1000.0);
                         Integer pages[] = new Integer[numberOfPages];
@@ -332,19 +325,19 @@ public class DataManager {
             subscriber.onNext(result);
             subscriber.onCompleted();
 
-            if (BuildConfig.DEBUG) {
-                Instant end = Instant.now();
-                Timber.i("Finished loved tracks sync in " + Duration.between(start, end).toMillis() + "ms");
-            }
+//            if (BuildConfig.DEBUG) {
+//                Instant end = Instant.now();
+//                Timber.i("Finished loved tracks sync in " + Duration.between(start, end).toMillis() + "ms");
+//            }
         });
     }
 
     private Observable<Void> syncWithSetilstFm(Map<ArtistDb, List<TrackDb>> scrobbleData, int artistsNumber) {
         return Observable.create(subscriber -> {
-            Instant start = null;
-            if (BuildConfig.DEBUG) {
-                start = Instant.now();
-            }
+//            Instant start = null;
+//            if (BuildConfig.DEBUG) {
+//                start = Instant.now();
+//            }
 
             Iterator<ArtistDb> iter = new TreeSet<>(scrobbleData.keySet()).descendingIterator();
 
@@ -377,7 +370,7 @@ public class DataManager {
                                 }
                                 Observable.from(pages)
                                         .concatMap(page -> mSetlistFmService.getSetlists(artist.getMbid(), page))
-                                        .retry(2)
+                                        .retry(1)
                                         .takeUntil(result -> (setlists.size() >= 15
                                                 || (!result.isLastDateMoreRecent(6) && setlists.size() >= 9)
                                                 || !result.isLastDateMoreRecent(12)))
@@ -468,10 +461,10 @@ public class DataManager {
 
             subscriber.onCompleted();
 
-            if (BuildConfig.DEBUG) {
-                Instant end = Instant.now();
-                Timber.i("Finished Setlist.fm sync in " + Duration.between(start, end).toMillis() + "ms");
-            }
+//            if (BuildConfig.DEBUG) {
+//                Instant end = Instant.now();
+//                Timber.i("Finished Setlist.fm sync in " + Duration.between(start, end).toMillis() + "ms");
+//            }
         });
     }
 

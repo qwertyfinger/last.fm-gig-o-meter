@@ -50,6 +50,7 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
     private ImageView mSyncAnimation;
     private Animation mRotation;
     private boolean mSyncInProgress;
+    private boolean mEraseInProgress;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +59,9 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
         setHasOptionsMenu(true);
         mPresenter = new ArtistListPresenter();
         mPresenter.attachView(this);
+        if (mPresenter.getUsername().isEmpty()) {
+            showDialogFragment(new LoginDialogFragment(), "loginFragment");
+        }
     }
 
     @Nullable
@@ -66,6 +70,12 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
         mBinding = FragmentListBinding.inflate(inflater, container, false);
         mListView = mBinding.artistList;
         mListView.setOnScrollListener(new ListScrollListener(getContext()));
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.getInt("progressBarVisibility") == View.VISIBLE) {
+                mBinding.progressBar.setVisibility(View.VISIBLE);
+            }
+        }
 
 //        TODO: check unwanted side effects
         if (mArtists == null) mPresenter.displayRankings();
@@ -101,12 +111,18 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt("progressBarVisibility", mBinding.progressBar.getVisibility());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         mSyncItem = menu.findItem(R.id.sync_item);
         if (mSyncInProgress) startSyncAnimation();
         mAddArtistsItem = menu.findItem(R.id.add_artists_to_sync_item);
-        if (mPresenter.getArtistsLimit() == mArtists.size()) {
+        if (mArtists != null && mPresenter.getArtistsLimit() == mArtists.size()) {
             mAddArtistsItem.setVisible(false);
         }
     }
@@ -116,19 +132,21 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
         switch (item.getItemId()) {
 
             case R.id.sync_item:
-                if (!mSyncInProgress) {
-                    if (Utils.checkConnectionSnackbar(mBinding.getRoot())) {
-                        if (mArtists != null && !mArtists.isEmpty()) mPresenter.syncData();
-                        else if (mPresenter.getUsername().isEmpty()) {
-                            Utils.showShortSnackbar(getView(), R.string.no_user_message);
-                        } else Utils.showShortSnackbar(getView(), R.string.no_artists_message);
-                    }
-                } else showWaitUntilSyncSnackbar();
+                if (!mEraseInProgress) {
+                    if (!mSyncInProgress) {
+                        if (Utils.checkConnectionSnackbar(mBinding.getRoot())) {
+                            if (!mPresenter.getUsername().isEmpty()) mPresenter.syncData();
+                            else Utils.showShortSnackbar(getView(), R.string.no_user_message);
+                        }
+                    } else showWaitUntilSyncSnackbar();
+                } else showWaitUntilEraseSnackbar();
                 return true;
 
             case R.id.log_into_lastfm_item:
-                if (!mSyncInProgress) showDialogFragment(new LoginDialogFragment(), "loginFragment");
-                else showWaitUntilSyncSnackbar();
+                if (!mEraseInProgress) {
+                    if (!mSyncInProgress) showDialogFragment(new LoginDialogFragment(), "loginFragment");
+                    else showWaitUntilSyncSnackbar();
+                } else showWaitUntilEraseSnackbar();
                 return true;
 
 //            case R.id.sort_item:
@@ -136,22 +154,26 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
 //                return true;
 
             case R.id.clear_data_item:
-                if (mSyncInProgress) showWaitUntilSyncSnackbar();
-                else if (mArtists == null || mArtists.isEmpty() || mPresenter.getUsername().isEmpty()){
-                    Utils.showShortSnackbar(getView(), R.string.no_data_message);
-                } else showDialogFragment(new EraseDialogFragment(), "eraseDialogFragment");
+                if (!mEraseInProgress) {
+                    if (mSyncInProgress) showWaitUntilSyncSnackbar();
+                    else if (mArtists == null || mArtists.isEmpty() || mPresenter.getUsername().isEmpty()){
+                        Utils.showShortSnackbar(getView(), R.string.no_data_message);
+                    } else showDialogFragment(new EraseDialogFragment(), "eraseDialogFragment");
+                } else showWaitUntilEraseSnackbar();
                 return true;
 
             case R.id.add_artists_to_sync_item:
-                if (!mSyncInProgress) {
-                    if (Utils.checkConnectionSnackbar(getView())) {
-                        if (mArtists != null && !mArtists.isEmpty()) {
-                            showDialogFragment(new AddArtistsDialogFragment(), "addArtistsFragment");
-                        } else if (!mPresenter.getUsername().isEmpty()){
-                            Utils.showShortSnackbar(getView(), R.string.no_artists_to_add_message);
-                        } else Utils.showShortSnackbar(getView(), R.string.no_user_message);
-                    }
-                } else showWaitUntilSyncSnackbar();
+                if (!mEraseInProgress) {
+                    if (!mSyncInProgress) {
+                        if (Utils.checkConnectionSnackbar(getView())) {
+                            if (mArtists != null && !mArtists.isEmpty()) {
+                                showDialogFragment(new AddArtistsDialogFragment(), "addArtistsFragment");
+                            } else if (!mPresenter.getUsername().isEmpty()){
+                                Utils.showShortSnackbar(getView(), R.string.no_artists_to_add_message);
+                            } else Utils.showShortSnackbar(getView(), R.string.no_user_message);
+                        }
+                    } else showWaitUntilSyncSnackbar();
+                } else showWaitUntilEraseSnackbar();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -161,13 +183,20 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
     @Override
     public void onFinishLoginDialog() {
         mPresenter.clearData()
-                .doOnCompleted(mPresenter::syncData)
+                .doOnSubscribe(() -> mEraseInProgress = true)
+                .doOnCompleted(() -> {
+                    mEraseInProgress = false;
+                    mPresenter.syncData();
+                })
                 .subscribe();
     }
 
     @Override
     public void onFinishEraseDialog() {
-        mPresenter.clearData().subscribe();
+        mPresenter.clearData()
+                .doOnSubscribe(() -> mEraseInProgress = true)
+                .doOnCompleted(() -> mEraseInProgress = false)
+                .subscribe();
     }
 
     @Override
@@ -211,12 +240,14 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
     @Override
     public void showSyncInProgress() {
         mSyncInProgress = true;
+        showProgressBar();
         startSyncAnimation();
     }
 
     @Override
     public void endSync(boolean isSuccessful) {
         mSyncInProgress = false;
+        hideProgressBar();
         if (mSyncItem != null && mSyncItem.getActionView() != null) {
             mSyncItem.getActionView().clearAnimation();
             mSyncItem.setActionView(null);
@@ -231,6 +262,20 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
     public void showErrorMessage() {
         if (mBinding != null) {
             Utils.showShortSnackbar(getView(), R.string.operation_failed);
+        }
+    }
+
+    @Override
+    public void showProgressBar() {
+        if (mBinding != null && mBinding.progressBar != null){
+            mBinding.progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void hideProgressBar() {
+        if (mBinding != null && mBinding.progressBar != null) {
+            mBinding.progressBar.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -280,6 +325,10 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
 
     private void showWaitUntilSyncSnackbar() {
         Utils.showShortSnackbar(getView(), R.string.wait_until_sync_finish);
+    }
+
+    private void showWaitUntilEraseSnackbar() {
+        Utils.showShortSnackbar(getView(), R.string.wait_until_erase_finish);
     }
 
     private void showDialogFragment(DialogFragment dialogFragment, String tag) {

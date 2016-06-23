@@ -34,4 +34,5 @@
     <string name="no_user_message">Last.fm user is not set</string>
     <string name="no_artists_to_add_message">No artists to add</string>
     <string name="no_data_message">No data</string>
+    <string name="wait_until_erase_finish">Wait until erase finishes</string>
 </resources>

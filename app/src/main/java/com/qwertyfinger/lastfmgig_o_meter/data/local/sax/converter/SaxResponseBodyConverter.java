@@ -20,7 +20,6 @@ final class SaxResponseBodyConverter<T> implements Converter<ResponseBody, T> {
     @Override
     public T convert(ResponseBody value) throws IOException {
         try {
-
             if (mResponseClass == SetlistResult.class) {
                 SetlistFmParser<T> setlistParser = new SetlistFmParser<>();
                 return setlistParser.parse(value.byteStream());
@@ -28,7 +27,6 @@ final class SaxResponseBodyConverter<T> implements Converter<ResponseBody, T> {
 
             LastFmParser<T> lastFmParser = new LastFmParser<>();
             return lastFmParser.parse(value.byteStream(), mResponseClass);
-
         } finally {
             value.close();
         }

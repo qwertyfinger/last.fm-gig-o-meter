@@ -5,10 +5,7 @@ import android.sax.RootElement;
 import android.support.v4.util.SimpleArrayMap;
 import android.util.Xml;
 
-import com.qwertyfinger.lastfmgig_o_meter.data.model.lastfm.ArtistLastFm;
-import com.qwertyfinger.lastfmgig_o_meter.data.model.lastfm.ErrorLastFm;
 import com.qwertyfinger.lastfmgig_o_meter.data.model.lastfm.ResponseLastFm;
-import com.qwertyfinger.lastfmgig_o_meter.data.model.lastfm.TopArtists;
 import com.qwertyfinger.lastfmgig_o_meter.data.model.lastfm.TrackLastFm;
 import com.qwertyfinger.lastfmgig_o_meter.data.model.lastfm.TrackList;
 
@@ -30,7 +27,7 @@ public class LastFmParser<T> extends DefaultHandler {
 
     private String mImageSize;
 
-    private ArtistLastFm mArtist;
+//    private ArtistLastFm mArtist;
     private SimpleArrayMap<String, String> mImageMap;
     private TrackLastFm mTrack;
 
@@ -48,18 +45,18 @@ public class LastFmParser<T> extends DefaultHandler {
             return (T) parseResponse();
         }
 
-        if (responseClass == ErrorLastFm.class) {
+        /*if (responseClass == ErrorLastFm.class) {
             return (T) parseError();
         }
 
         if (responseClass == TopArtists.class) {
             return (T) parseTopArtists();
-        }
+        }*/
 
         return null;
     }
 
-    private TopArtists parseTopArtists() {
+    /*private TopArtists parseTopArtists() {
 
         TopArtists topArtists = new TopArtists();
         List<ArtistLastFm> artistList = new ArrayList<>();
@@ -101,7 +98,7 @@ public class LastFmParser<T> extends DefaultHandler {
             Timber.e(e, e.getClass().getCanonicalName());
         }
         return null;
-    }
+    }*/
 
     private TrackList parseTrackList() {
         TrackList result = new TrackList();
@@ -182,7 +179,7 @@ public class LastFmParser<T> extends DefaultHandler {
         return null;
     }
 
-    private ErrorLastFm parseError() {
+    /*private ErrorLastFm parseError() {
         ErrorLastFm error = new ErrorLastFm();
 
         Element errorXml = mRoot.getChild("error");
@@ -198,7 +195,7 @@ public class LastFmParser<T> extends DefaultHandler {
             Timber.e(e, e.getClass().getCanonicalName());
         }
         return null;
-    }
+    }*/
 
     private ResponseLastFm parseResponse() {
         ResponseLastFm response = new ResponseLastFm();

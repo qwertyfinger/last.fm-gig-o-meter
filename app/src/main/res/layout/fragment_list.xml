@@ -14,6 +14,23 @@
             android:fastScrollAlwaysVisible="false"
             android:smoothScrollbar="true"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="63dp"
+                android:layout_height="63dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:indeterminate="true"
+                android:indeterminateOnly="true"
+                android:visibility="invisible"/>
+
+        </RelativeLayout>
+
+
         <TextView
             android:id="@+id/noArtists"
             android:layout_height="match_parent"

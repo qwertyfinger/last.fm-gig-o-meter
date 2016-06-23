@@ -96,13 +96,16 @@ public class ArtistListPresenter extends BasePresenter<ArtistsListMvpView> {
             mCompositeSubscription.add(mDataManager.clearData()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
+                    .doOnSubscribe(() -> getMvpView().showProgressBar())
                     .doOnError(e -> Timber.e(e, e.getClass().getCanonicalName()))
                     .subscribe(aVoid -> {}, e -> {
+                        getMvpView().hideProgressBar();
                         getMvpView().showErrorMessage();
                         subscriber.onError(e);
                     }, () -> {
                         mDataManager.setArtistsLimit(50);
                         displayRankings();
+                        getMvpView().hideProgressBar();
                         subscriber.onCompleted();
                     }));
         });

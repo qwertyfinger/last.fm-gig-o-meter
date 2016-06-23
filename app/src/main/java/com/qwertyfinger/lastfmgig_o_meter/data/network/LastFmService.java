@@ -2,7 +2,6 @@ package com.qwertyfinger.lastfmgig_o_meter.data.network;
 
 
 import com.qwertyfinger.lastfmgig_o_meter.data.model.lastfm.ResponseLastFm;
-import com.qwertyfinger.lastfmgig_o_meter.data.model.lastfm.TopArtists;
 import com.qwertyfinger.lastfmgig_o_meter.data.model.lastfm.TrackList;
 
 import retrofit2.http.GET;
@@ -13,11 +12,11 @@ public interface LastFmService {
 
     String ENDPOINT = "http://ws.audioscrobbler.com/2.0/";
 
-    @GET("?method=user.gettopartists")
+    /*@GET("?method=user.gettopartists")
     Observable<TopArtists> getTopArtists(@Query(value = "api_key") String apiKey,
                                          @Query(value = "user") String user,
                                          @Query(value = "limit") int limit,
-                                         @Query(value = "page") int page);
+                                         @Query(value = "page") int page);*/
 
     /*@GET("?method=user.gettracks")
     Observable<Response> getTracks(@Query(value = "api_key") String apiKey, @Query(value = "user") String user,
