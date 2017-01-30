@@ -19,3 +19,4 @@ gen/
 # Gradle files
 .gradle/
 build/
+gradle.properties
