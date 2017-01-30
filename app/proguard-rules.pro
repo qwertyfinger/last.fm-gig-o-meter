@@ -17,3 +17,4 @@
 #}
 
 -keep class com.android.vending.billing.**
+-keep class com.android.support.v7.widget.CardView { *; }

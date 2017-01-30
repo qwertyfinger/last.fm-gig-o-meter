@@ -15,14 +15,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.qwertyfinger.lastfmgig_o_meter.R;
 import com.qwertyfinger.lastfmgig_o_meter.data.model.db.ArtistDb;
 import com.qwertyfinger.lastfmgig_o_meter.databinding.ItemArtistBinding;
 import com.qwertyfinger.lastfmgig_o_meter.util.Constants;
 import com.qwertyfinger.lastfmgig_o_meter.util.Utils;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -82,7 +80,7 @@ public class ArtistListAdapter extends BaseAdapter {
         return binding.getRoot();
     }
 
-    @BindingAdapter({"bind:imageUrl", "bind:error"})
+    @BindingAdapter({"imageUrl", "error"})
     public static void loadImage(ImageView imageView, String url, Drawable error) {
         try {
             Picasso.with(imageView.getContext())
@@ -102,7 +100,7 @@ public class ArtistListAdapter extends BaseAdapter {
         }
     }
 
-    @BindingAdapter({"bind:score", "bind:syncStatus"})
+    @BindingAdapter({"score", "syncStatus"})
     public static void setScore(ProgressBar circleBar, double artistScore, int syncStatus) {
         if (syncStatus == Constants.SYNC_STATUS_HAS_SCORE) {
             circleBar.setProgress(artistScore > 100 ? 100 : (int) Math.round(artistScore));
@@ -124,7 +122,7 @@ public class ArtistListAdapter extends BaseAdapter {
         }
     }
 
-    @BindingAdapter({"bind:score", "bind:syncStatus"})
+    @BindingAdapter({"score", "syncStatus"})
     public static void setScore(TextView textView, double artistScore, int syncStatus) {
         textView.setTextColor(Utils.getScoreColor(artistScore));
         if (syncStatus == Constants.SYNC_STATUS_HAS_SCORE) {

@@ -1,8 +1,22 @@
-*.iml
-.gradle
-/local.properties
+local.properties
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
-/build
 /captures
+
+# Generated iml files
+*.iml
+app/app.iml
+
+# Files for the Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+gen/
+
+# Gradle files
+.gradle/
+build/
