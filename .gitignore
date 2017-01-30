@@ -17,6 +17,6 @@ app/app.iml
 gen/
 
 # Gradle files
-.gradle/
+gradle/
 build/
 gradle.properties
