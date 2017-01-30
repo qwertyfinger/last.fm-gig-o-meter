@@ -2,10 +2,10 @@ local.properties
 .DS_Store
 /captures
 .idea
+projectFilesBackup/
 
 # Generated iml files
 *.iml
-app/app.iml
 
 # Files for the Dalvik VM
 *.dex
@@ -20,3 +20,4 @@ gen/
 .gradle/
 build/
 gradle.properties
+app/lib/
