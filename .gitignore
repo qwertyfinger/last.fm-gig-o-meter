@@ -1,11 +1,11 @@
 local.properties
 .DS_Store
 /captures
-.idea
+#.idea
 projectFilesBackup/
 
 # Generated iml files
-*.iml
+#*.iml
 
 # Files for the Dalvik VM
 *.dex
