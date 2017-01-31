@@ -40,14 +40,13 @@ android {
 
     buildTypes {
         release {
-//            TODO: investigate fact that app stopped working with proguard on
             debuggable false
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             testProguardFile 'proguard-project-test.pro'
             FileCollection proGuardFileCollection = files { file('./proguard').listFiles() }
-            setProguardFiles(proGuardFileCollection)
+            proguardFiles(proGuardFileCollection.getFiles().toArray())
             signingConfig signingConfigs.release
         }
         debug {
@@ -81,9 +80,8 @@ dependencies {
 //    androidTestCompile 'com.android.support.test:runner:0.4.1'
 //    androidTestCompile 'com.android.support:support-annotations:23.1.1'
 
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
-    compile 'com.android.support:cardview-v7:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:design:25.1.1'
 
     compile 'com.squareup.sqlbrite:sqlbrite:1.1.1'
     compile 'io.reactivex:rxjava:1.2.5'
