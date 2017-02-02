@@ -1,7 +1,7 @@
 # Last.fm Gig-o-Meter
 Simple application that lets you discover your 'concert compatibility' with your favourite music artists.
 
-<b>Future plans:</b> work is going on creating full-fledged social app for all your concert activities! <em>(ETA: middle-late spring)</em>
+<b>Future plans:</b> work is going on creating a full-fledged social app for all your concert activities! <em>(ETA: middle-late spring)</em>
 
 <h3>Idea</h3>
 The algorithm works by measuring how much artist's songs you listen to match with songs this artist plays at gigs.
