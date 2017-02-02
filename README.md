@@ -1,5 +1,7 @@
 # Last.fm Gig-o-Meter
-Simple application that lets you discover your 'concert compatibility' with your favourite music artists. Download apk <a href="https://github.com/qwertyfinger/last.fm-gig-o-meter/raw/master/last.fm%20gig-o-meter%20v0.1.apk">here</a>.
+Simple application that lets you discover your 'concert compatibility' with your favourite music artists. 
+
+Download apk <a href="https://github.com/qwertyfinger/last.fm-gig-o-meter/raw/master/last.fm%20gig-o-meter%20v0.1.apk">here</a>.
 
 <b>Future plans:</b> work is going on creating a full-fledged social app for all your concert activities! <em>(ETA: middle-late spring)</em>
 
