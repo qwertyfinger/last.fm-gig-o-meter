@@ -3,7 +3,7 @@ Simple application that lets you discover your 'concert compatibility' with your
 
 Download apk [here](https://github.com/qwertyfinger/last.fm-gig-o-meter/raw/master/last.fm%20gig-o-meter%20v0.1.apk).
 
-**Future plans:** work is going on creating a full-fledged social app for all your concert activities! *(ETA: middle-late spring)*
+**Future plans:** work is going on creating a full-fledged social app for all your concert activities! *(ETA: late spring)*
 
 ## Idea ##
 The algorithm works by measuring how much artist's songs you listen to match with songs this artist plays at gigs.
