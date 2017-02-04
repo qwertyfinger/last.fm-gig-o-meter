@@ -120,11 +120,16 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         mSyncItem = menu.findItem(R.id.sync_item);
-        if (mSyncInProgress) startSyncAnimation();
         mAddArtistsItem = menu.findItem(R.id.add_artists_to_sync_item);
-        if (mArtists != null && mPresenter.getArtistsLimit() == mArtists.size()) {
+        /*if (mArtists != null && mPresenter.getArtistsLimit() == mArtists.size()) {
             mAddArtistsItem.setVisible(false);
-        }
+        }*/
+    }
+
+    @Override public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (mSyncInProgress) startSyncAnimation();
+        updateAddButtonVisibility();
     }
 
     @Override
@@ -195,7 +200,9 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
     public void onFinishEraseDialog() {
         mPresenter.clearData()
                 .doOnSubscribe(() -> mEraseInProgress = true)
-                .doOnCompleted(() -> mEraseInProgress = false)
+                .doOnCompleted(() -> {
+                    mEraseInProgress = false;
+                })
                 .subscribe();
     }
 
@@ -233,7 +240,7 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
             mArtists.addAll(artists);
             ((ArtistListAdapter) mListView.getAdapter()).notifyDataSetChanged();
         }
-
+        updateAddButtonVisibility();
         checkListEmpty();
     }
 
@@ -320,6 +327,16 @@ public class ArtistListFragment extends android.support.v4.app.Fragment implemen
         mBinding.noUser.setVisibility(View.INVISIBLE);
         if (mBinding != null && mBinding.artistList != null && mBinding.noArtists != null) {
             mBinding.artistList.setEmptyView(mBinding.noArtists);
+        }
+    }
+
+    private void updateAddButtonVisibility() {
+        if (mArtists != null) {
+            if (mPresenter.getArtistsLimit() < mArtists.size()) {
+                mAddArtistsItem.setVisible(true);
+            } else {
+                mAddArtistsItem.setVisible(false);
+            }
         }
     }
 

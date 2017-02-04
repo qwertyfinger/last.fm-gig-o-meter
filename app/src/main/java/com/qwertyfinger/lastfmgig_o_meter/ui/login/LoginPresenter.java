@@ -45,6 +45,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
                         .subscribe(result -> {
                             if (result) {
                                 mDataManager.setUsername(username);
+                                mDataManager.setArtistsLimit(50);
                                 subscriber.onNext(true);
                             }
                             else if (getMvpView() != null) getMvpView().showWrongUsernameMessage();
