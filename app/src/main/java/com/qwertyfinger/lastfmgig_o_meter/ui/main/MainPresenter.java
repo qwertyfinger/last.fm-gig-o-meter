@@ -1,19 +1,17 @@
 package com.qwertyfinger.lastfmgig_o_meter.ui.main;
 
-import com.qwertyfinger.lastfmgig_o_meter.data.DataManager;
 import com.qwertyfinger.lastfmgig_o_meter.ui.base.BasePresenter;
-
 import rx.subscriptions.CompositeSubscription;
 
 @SuppressWarnings("unchecked") public class MainPresenter extends BasePresenter<MainMvpView> {
 
-  private final DataManager mDataManager;
+  //private final DataManager mDataManager;
   private CompositeSubscription mCompositeSubscription;
 
   //    private static final String sRequestTag = "syncData";
 
   public MainPresenter() {
-    this.mDataManager = DataManager.getInstance();
+    //this.mDataManager = DataManager.getInstance();
     mCompositeSubscription = new CompositeSubscription();
   }
 
