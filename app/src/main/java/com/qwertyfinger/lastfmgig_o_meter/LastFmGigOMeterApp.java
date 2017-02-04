@@ -3,17 +3,15 @@ package com.qwertyfinger.lastfmgig_o_meter;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
-
 import timber.log.Timber;
 
 public class LastFmGigometerApp extends Application {
 
   private static LastFmGigometerApp sInstance;
-  @SuppressWarnings("unused") private final RefWatcher refWatcher;
+  @SuppressWarnings("unused") private RefWatcher refWatcher;
 
   public static LastFmGigometerApp getInstance() {
     return sInstance;
