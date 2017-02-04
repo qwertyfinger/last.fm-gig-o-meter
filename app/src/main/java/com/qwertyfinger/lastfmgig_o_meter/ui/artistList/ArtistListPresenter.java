@@ -15,7 +15,7 @@ import timber.log.Timber;
 public class ArtistListPresenter extends BasePresenter<ArtistsListMvpView> {
 
   private final DataManager mDataManager;
-  private CompositeSubscription mCompositeSubscription;
+  private final CompositeSubscription mCompositeSubscription;
 
   public ArtistListPresenter() {
     this.mDataManager = DataManager.getInstance();

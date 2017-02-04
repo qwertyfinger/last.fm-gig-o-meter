@@ -26,7 +26,7 @@ import java.util.Locale;
 
 public class ArtistListAdapter extends BaseAdapter {
 
-  private List<ArtistDb> mArtists;
+  private final List<ArtistDb> mArtists;
   //    private final WeakReferenceOnListChangedCallback callback = new WeakReferenceOnListChangedCallback(this);
 
   public ArtistListAdapter(List<ArtistDb> artists) {

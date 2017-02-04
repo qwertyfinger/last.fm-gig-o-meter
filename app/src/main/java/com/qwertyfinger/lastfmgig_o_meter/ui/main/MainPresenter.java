@@ -6,7 +6,7 @@ import rx.subscriptions.CompositeSubscription;
 @SuppressWarnings("unchecked") public class MainPresenter extends BasePresenter<MainMvpView> {
 
   //private final DataManager mDataManager;
-  private CompositeSubscription mCompositeSubscription;
+  private final CompositeSubscription mCompositeSubscription;
 
   //    private static final String sRequestTag = "syncData";
 

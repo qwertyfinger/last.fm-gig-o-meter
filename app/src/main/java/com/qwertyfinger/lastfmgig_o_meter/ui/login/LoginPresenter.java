@@ -13,7 +13,7 @@ import timber.log.Timber;
 public class LoginPresenter extends BasePresenter<LoginMvpView> {
 
   private final DataManager mDataManager;
-  private CompositeSubscription mCompositeSubscription;
+  private final CompositeSubscription mCompositeSubscription;
 
   public LoginPresenter() {
     this.mDataManager = DataManager.getInstance();

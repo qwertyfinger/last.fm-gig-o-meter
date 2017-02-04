@@ -11,7 +11,7 @@ import retrofit2.Converter;
 
 final class SaxResponseBodyConverter<T> implements Converter<ResponseBody, T> {
 
-  private Class<T> mResponseClass;
+  private final Class<T> mResponseClass;
 
   SaxResponseBodyConverter(Class<T> responseClass) {
     this.mResponseClass = responseClass;

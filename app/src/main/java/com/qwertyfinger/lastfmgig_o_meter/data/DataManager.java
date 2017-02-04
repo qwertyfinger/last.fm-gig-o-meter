@@ -34,7 +34,7 @@ import timber.log.Timber;
 public class DataManager {
 
   private static DataManager sInstance;
-  private DatabaseHelper mDatabaseHelper;
+  private final DatabaseHelper mDatabaseHelper;
   private final PreferencesHelper mPrefHelper;
   private final LastFmService mLastFmService;
   private final SetlistFmService mSetlistFmService;

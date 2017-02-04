@@ -7,12 +7,12 @@ import com.qwertyfinger.lastfmgig_o_meter.LastFmGigometerApp;
 
 public class PreferencesHelper {
 
-  public static final String PREF_FILE_NAME = "lastfm_gigometer_prefs";
-  public static final String OVERALL_SCROBBLES = "overall_scrobbles";
-  public static final String OVERALL_TRACKS = "overall_tracks";
-  public static final String TOP_TRACKS_SCROBBLES = "top_track_scrobbles";
-  public static final String USERNAME = "username";
-  public static final String ARTISTS_LIMIT = "artists_limit";
+  private static final String PREF_FILE_NAME = "lastfm_gigometer_prefs";
+  private static final String OVERALL_SCROBBLES = "overall_scrobbles";
+  private static final String OVERALL_TRACKS = "overall_tracks";
+  private static final String TOP_TRACKS_SCROBBLES = "top_track_scrobbles";
+  private static final String USERNAME = "username";
+  private static final String ARTISTS_LIMIT = "artists_limit";
 
   private final SharedPreferences mPref;
 
