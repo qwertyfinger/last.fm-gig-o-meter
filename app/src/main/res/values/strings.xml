@@ -22,10 +22,7 @@
   <string name="erase_confirmation_dialog_message">You\'ll lose all data!</string>
   <string name="erase_confirmation_dialog_button">Clear data</string>
   <string name="add_artists_dialog_title">Add artists to sync-list</string>
-  <string name="add_artists_dialog_message">
-        Initially, for the sake of traffic saving only your top-50 artists are in the sync-list.
-        \nChoose number of next top artists to include in it.
-    </string>
+  <string name="add_artists_dialog_message">Initially, to reduce data usage only your top-50 artists are in the sync-list.\nChoose number of next top artists to include in it.</string>
   <string name="add_artists_dialog_button">Add</string>
   <string name="artists_number_selector_hint">Number of artists</string>
   <string name="wait_until_sync_finish">Wait until sync finishes</string>

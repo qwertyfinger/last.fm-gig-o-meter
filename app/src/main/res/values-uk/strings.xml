@@ -22,11 +22,7 @@
   <string name="erase_confirmation_dialog_button">Очистити дані</string>
   <string name="add_artists_to_sync_item">Додати виконавців до оновлень</string>
   <string name="add_artists_dialog_title">Додати виконавців до оновлень</string>
-  <string name="add_artists_dialog_message">
-        Початково, для збереження трафіку, у список виконавців, для яких виконується синхронізація,
-        додаються лише топ-50.
-        \nОберіть кількість наступних топ-виконавців, аби додати їх до списку.
-    </string>
+  <string name="add_artists_dialog_message">Початково, для зменшення споживання даних до списку синхронізації додаються лише топ-50 виконавців.\nОберіть кількість наступних топ-виконавців, аби додати їх до списку.</string>
   <string name="add_artists_dialog_button">Додати</string>
   <string name="artists_number_selector_hint">Кількість виконавців</string>
   <string name="no_artists_message">Немає виконавців</string>
