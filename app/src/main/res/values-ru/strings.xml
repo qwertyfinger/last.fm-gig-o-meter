@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Last.fm Gig-o-Meter</string>
+  <string name="about_item">Про приложение</string>
+  <string name="add_artists_dialog_button">Добавить</string>
+  <string name="add_artists_dialog_message">Сначала, для уменьшения потребления данных, в список синхронизации, добавлено лишь топ-50 исполнителей.\nВыберите количество следующих топ-исполнителей, которое вы хотите добавить.</string>
+  <string name="add_artists_dialog_title">Добавить исполнителей для обновления</string>
+  <string name="add_artists_to_sync_item">Добавить исполнителей для обновления</string>
+  <string name="artists_number_selector_hint">Количество исполнителей</string>
+  <string name="cancel_button_text">Отменить</string>
+  <string name="clear_data_fail">Не удалось стереть данные</string>
+  <string name="clear_data_item">Стереть данные</string>
+  <string name="erase_confirmation_dialog_button">Стереть данные</string>
+  <string name="erase_confirmation_dialog_message">Вы потеряете все данные!</string>
+  <string name="erase_confirmation_dialog_title">Вы уверены?</string>
+  <string name="error_message">Ошибка</string>
+  <string name="ime_signin_action_label">Войти</string>
+  <string name="log_into_lastfm_item">Настройки Last.fm</string>
+  <string name="login_dialog_title">Войти в Last.fm</string>
+  <string name="no_artists_message">Нет исполнителей</string>
+  <string name="no_artists_to_add_message">Нет исполнителей для добавления</string>
+  <string name="no_connection">Нет интернет-подключения</string>
+  <string name="no_data_message">Нет данных</string>
+  <string name="no_user_message">Не выбран пользователь Last.fm</string>
+  <string name="operation_failed">Операция не удалась</string>
+  <string name="sign_in_button_text">Войти</string>
+  <string name="sort_item">Сортировать</string>
+  <string name="sync_failed">Ошибка обновления</string>
+  <string name="sync_finished">Обновление прошло успешно</string>
+  <string name="sync_item">Обновить</string>
+  <string name="username_hint">Имя пользователя</string>
+  <string name="wait_until_erase_finish">Дождитесь окончания удаления данных</string>
+  <string name="wait_until_sync_finish">Дождитесь окончания обновления</string>
+  <string name="wrong_username">Неверное имя пользователя</string>
+</resources>
