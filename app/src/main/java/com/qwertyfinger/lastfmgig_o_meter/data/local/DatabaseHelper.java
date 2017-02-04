@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2017 Andriy Chubko
+ */
+
 package com.qwertyfinger.lastfmgig_o_meter.data.local;
 
 import android.database.sqlite.SQLiteDatabase;
