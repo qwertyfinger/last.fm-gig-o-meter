@@ -15,8 +15,7 @@ public class ArtistDb /*extends BaseObservable*/ implements Comparable<ArtistDb>
   private int nmbOfConcerts;
   private int syncStatus;
 
-  public ArtistDb() {
-  }
+  public ArtistDb() {}
 
   public ArtistDb(String name) {
     this.name = name;

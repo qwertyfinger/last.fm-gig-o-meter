@@ -1,10 +1,7 @@
 package com.qwertyfinger.lastfmgig_o_meter.data.model.lastfm;
 
-import android.content.Context;
 import android.support.v4.util.SimpleArrayMap;
-
 import com.qwertyfinger.lastfmgig_o_meter.data.model.db.ArtistDb;
-import com.qwertyfinger.lastfmgig_o_meter.util.Utils;
 
 //TODO: think about implementation of artist page caching
 public class ArtistLastFm {
@@ -15,10 +12,10 @@ public class ArtistLastFm {
   private SimpleArrayMap<String, String> images;
   //    private Target target;
 
-  private Context context;
+  //private Context context;
 
   public ArtistLastFm() {
-    context = Utils.getAppContext();
+    //context = Utils.getAppContext();
   }
 
   public String getName() {

@@ -20,8 +20,7 @@ public class LoginDialogFragment extends DialogFragment implements LoginMvpView 
   private FragmentLoginBinding mBinding;
   private LoginPresenter mPresenter;
 
-  public LoginDialogFragment() {
-  }
+  public LoginDialogFragment() {}
 
   @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
     LayoutInflater inflater = LayoutInflater.from(getContext());

@@ -71,7 +71,7 @@ public class DataManager {
   public Observable<Boolean> checkUser(String username) {
     return Observable.create(subscriber -> {
       mLastFmService.checkUser(BuildConfig.LAST_FM_API_KEY, username)
-          //                    .retry(1)
+          .retry(1)
           .subscribe(response -> {
             if (response.getStatus().equals(Constants.LASTFM_RESPONSE_OK_STATUS)) {
               subscriber.onNext(true);

@@ -38,9 +38,10 @@ public class DatabaseHelper {
 
   public Observable<Void> addScrobbleData(Map<ArtistDb, List<TrackDb>> scrobbleData) {
     return Observable.create(subscriber -> {
-      addArtists(scrobbleData.keySet()).retry(2).subscribe(aVoid -> {
-      }, subscriber::onError, () -> addTracks(scrobbleData.values()).retry(2).subscribe(bVoid -> {
-      }, subscriber::onError, subscriber::onCompleted));
+      addArtists(scrobbleData.keySet()).retry(2).subscribe(aVoid -> {}, subscriber::onError, () -> {
+            addTracks(scrobbleData.values()).retry(2).subscribe(bVoid -> {}, subscriber::onError,
+                subscriber::onCompleted);
+          });
     });
   }
 

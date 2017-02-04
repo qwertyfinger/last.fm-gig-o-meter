@@ -10,17 +10,14 @@ import com.qwertyfinger.lastfmgig_o_meter.R;
 
 public class EraseDialogFragment extends DialogFragment {
 
-  public EraseDialogFragment() {
-  }
+  public EraseDialogFragment() {}
 
   @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
     builder.setTitle(getString(R.string.erase_confirmation_dialog_title));
     builder.setMessage(getString(R.string.erase_confirmation_dialog_message));
     builder.setPositiveButton(getString(R.string.erase_confirmation_dialog_button),
-        (dialog, which) -> {
-          sendBackResult();
-        });
+        (dialog, which) -> sendBackResult());
     builder.setNegativeButton(getString(R.string.cancel_button_text), null);
 
     return builder.show();

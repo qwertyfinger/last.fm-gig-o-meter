@@ -212,9 +212,8 @@ public class ArtistListFragment extends android.support.v4.app.Fragment
   }
 
   @Override public void onFinishEraseDialog() {
-    mPresenter.clearData().doOnSubscribe(() -> mEraseInProgress = true).doOnCompleted(() -> {
-      mEraseInProgress = false;
-    }).subscribe();
+    mPresenter.clearData().doOnSubscribe(() -> mEraseInProgress = true).doOnCompleted(() ->
+        mEraseInProgress = false).subscribe();
   }
 
   @Override public void onFinishAddArtistsDialog(int number) {

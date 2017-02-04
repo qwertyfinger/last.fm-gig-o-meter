@@ -17,8 +17,7 @@ public class AddArtistsDialogFragment extends DialogFragment {
 
   private FragmentAddArtistsBinding binding;
 
-  public AddArtistsDialogFragment() {
-  }
+  public AddArtistsDialogFragment() {}
 
   @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
     LayoutInflater inflater = LayoutInflater.from(getContext());
