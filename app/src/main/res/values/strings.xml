@@ -4,7 +4,6 @@
   <string name="sort_item">Sort</string>
   <string name="log_into_lastfm_item">Last.fm settings</string>
   <string name="about_item">About</string>
-
   <string name="login_dialog_title">Last.fm Sign In</string>
   <string name="sign_in_button_text">Sign In</string>
   <string name="cancel_button_text">Cancel</string>

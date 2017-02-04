@@ -248,7 +248,7 @@ public class ArtistListFragment extends android.support.v4.app.Fragment
       mArtists.addAll(artists);
       ((ArtistListAdapter) mListView.getAdapter()).notifyDataSetChanged();
     }
-    updateAddButtonVisibility();
+    if (mAddArtistsItem != null) updateAddButtonVisibility();
     checkListEmpty();
   }
 
