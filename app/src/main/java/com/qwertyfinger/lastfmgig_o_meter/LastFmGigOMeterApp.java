@@ -13,7 +13,7 @@ import timber.log.Timber;
 public class LastFmGigometerApp extends Application {
 
   private static LastFmGigometerApp sInstance;
-  private RefWatcher refWatcher;
+  @SuppressWarnings("unused") private RefWatcher refWatcher;
 
   public static LastFmGigometerApp getInstance() {
     return sInstance;

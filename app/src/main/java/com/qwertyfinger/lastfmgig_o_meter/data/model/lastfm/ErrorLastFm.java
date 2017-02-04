@@ -1,3 +1,4 @@
+/*
 package com.qwertyfinger.lastfmgig_o_meter.data.model.lastfm;
 
 public class ErrorLastFm {
@@ -21,3 +22,4 @@ public class ErrorLastFm {
     this.description = description;
   }
 }
+*/
