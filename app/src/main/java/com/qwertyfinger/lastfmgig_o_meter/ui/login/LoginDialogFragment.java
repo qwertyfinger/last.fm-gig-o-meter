@@ -17,112 +17,104 @@ import com.qwertyfinger.lastfmgig_o_meter.util.Utils;
 
 public class LoginDialogFragment extends DialogFragment implements LoginMvpView {
 
-    private FragmentLoginBinding mBinding;
-    private LoginPresenter mPresenter;
+  private FragmentLoginBinding mBinding;
+  private LoginPresenter mPresenter;
 
-    public LoginDialogFragment() {}
+  public LoginDialogFragment() {
+  }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        mBinding = FragmentLoginBinding.inflate(inflater, null, false);
-        mBinding.username.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == 0) {
-                handleInput();
-                return true;
-            }
-            return false;
-        });
-        mBinding.username.requestFocus();
+  @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
+    LayoutInflater inflater = LayoutInflater.from(getContext());
+    mBinding = FragmentLoginBinding.inflate(inflater, null, false);
+    mBinding.username.setOnEditorActionListener((v, actionId, event) -> {
+      if (actionId == 0) {
+        handleInput();
+        return true;
+      }
+      return false;
+    });
+    mBinding.username.requestFocus();
 
-        if (savedInstanceState != null) {
-            if (savedInstanceState.getInt("errorMessageVisibility") == View.VISIBLE) {
-                mBinding.errorMessage.setVisibility(View.VISIBLE);
-            }
-        }
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(getString(R.string.login_dialog_title));
-        builder.setView(mBinding.getRoot());
-        builder.setPositiveButton(getString(R.string.sign_in_button_text), null);
-        builder.setNegativeButton(getString(R.string.cancel_button_text), null);
-
-        AlertDialog dialog = builder.create();
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-
-        mPresenter = new LoginPresenter();
-        mPresenter.attachView(this);
-        String username = mPresenter.getUsername();
-        mBinding.username.setText(username);
-        mBinding.username.selectAll();
-
-        return dialog;
+    if (savedInstanceState != null) {
+      if (savedInstanceState.getInt("errorMessageVisibility") == View.VISIBLE) {
+        mBinding.errorMessage.setVisibility(View.VISIBLE);
+      }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        AlertDialog dialog = (AlertDialog) getDialog();
-        if (dialog != null) {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> handleInput());
-        }
-    }
+    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+    builder.setTitle(getString(R.string.login_dialog_title));
+    builder.setView(mBinding.getRoot());
+    builder.setPositiveButton(getString(R.string.sign_in_button_text), null);
+    builder.setNegativeButton(getString(R.string.cancel_button_text), null);
 
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        mPresenter.detachView();
-    }
+    AlertDialog dialog = builder.create();
+    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putInt("errorMessageVisibility", mBinding.errorMessage.getVisibility());
-        super.onSaveInstanceState(outState);
-    }
+    mPresenter = new LoginPresenter();
+    mPresenter.attachView(this);
+    String username = mPresenter.getUsername();
+    mBinding.username.setText(username);
+    mBinding.username.selectAll();
 
-    @Override
-    public void dismissDialog() {
-        dismiss();
-    }
+    return dialog;
+  }
 
-    @Override
-    public void showWrongUsernameMessage() {
-        if (getActivity() != null) {
-            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                Utils.showShortToast(getContext(), R.string.wrong_username);
-            }
-        }
-        if (mBinding != null && mBinding.errorMessage != null) {
-            mBinding.errorMessage.setVisibility(View.VISIBLE);
-        }
+  @Override public void onStart() {
+    super.onStart();
+    AlertDialog dialog = (AlertDialog) getDialog();
+    if (dialog != null) {
+      dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> handleInput());
     }
+  }
 
-    @Override
-    public void showNoConnectionToast() {
-        Utils.showNoConnectionToast(getContext());
-    }
+  @Override public void onDismiss(DialogInterface dialog) {
+    super.onDismiss(dialog);
+    mPresenter.detachView();
+  }
 
-    @Override
-    public void showErrorToast() {
-        Utils.showShortToast(getContext(), R.string.error_message);
-    }
+  @Override public void onSaveInstanceState(Bundle outState) {
+    outState.putInt("errorMessageVisibility", mBinding.errorMessage.getVisibility());
+    super.onSaveInstanceState(outState);
+  }
 
-    public interface LoginDialogListener {
-        void onFinishLoginDialog();
-    }
+  @Override public void dismissDialog() {
+    dismiss();
+  }
 
-    private void sendBackResult() {
-        LoginDialogListener listener = (LoginDialogListener) getTargetFragment();
-        listener.onFinishLoginDialog();
-        dismiss();
+  @Override public void showWrongUsernameMessage() {
+    if (getActivity() != null) {
+      if (getActivity().getResources().getConfiguration().orientation
+          == Configuration.ORIENTATION_LANDSCAPE) {
+        Utils.showShortToast(getContext(), R.string.wrong_username);
+      }
     }
+    if (mBinding != null && mBinding.errorMessage != null) {
+      mBinding.errorMessage.setVisibility(View.VISIBLE);
+    }
+  }
 
-    private void handleInput() {
-        String username = mBinding.username.getText().toString();
-        if (username.length() > 0) {
-            mPresenter.handleInput(username)
-                    .subscribe(result -> sendBackResult());
-        }
+  @Override public void showNoConnectionToast() {
+    Utils.showNoConnectionToast(getContext());
+  }
+
+  @Override public void showErrorToast() {
+    Utils.showShortToast(getContext(), R.string.error_message);
+  }
+
+  public interface LoginDialogListener {
+    void onFinishLoginDialog();
+  }
+
+  private void sendBackResult() {
+    LoginDialogListener listener = (LoginDialogListener) getTargetFragment();
+    listener.onFinishLoginDialog();
+    dismiss();
+  }
+
+  private void handleInput() {
+    String username = mBinding.username.getText().toString();
+    if (username.length() > 0) {
+      mPresenter.handleInput(username).subscribe(result -> sendBackResult());
     }
+  }
 }

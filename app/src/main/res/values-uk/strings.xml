@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Last.fm Gig-o-Meter</string>
-    <string name="ime_signin_action_label">Увійти</string>
-    <string name="log_into_lastfm_item">Налаштування Last.fm</string>
-    <string name="about_item">Про програму</string>
-    <string name="sort_item">Сортувати</string>
-    <string name="sync_failed">Помилка оновлення</string>
-    <string name="sync_finished">Успішно оновлено</string>
-    <string name="sync_item">Оновити</string>
-    <string name="username_hint">Ім\'я користувача</string>
-    <string name="wrong_username">Неправильне ім\'я користувача</string>
-    <string name="cancel_button_text">Скасувати</string>
-    <string name="login_dialog_title">Увійти до Last.fm</string>
-    <string name="sign_in_button_text">Увійти</string>
-    <string name="no_connection">Немає підключення до інтернету</string>
-    <string name="error_message">Помилка</string>
-    <string name="clear_data_item">Очистити дані</string>
-    <string name="clear_data_fail">Не вдалося очистити дані</string>
-    <string name="erase_confirmation_dialog_title">Ви впевнені?</string>
-    <string name="erase_confirmation_dialog_message">Ви втратите усі дані!</string>
-    <string name="erase_confirmation_dialog_button">Очистити дані</string>
-    <string name="add_artists_to_sync_item">Додати виконавців до оновлень</string>
-    <string name="add_artists_dialog_title">Додати виконавців до оновлень</string>
-    <string name="add_artists_dialog_message">
+  <string name="app_name">Last.fm Gig-o-Meter</string>
+  <string name="ime_signin_action_label">Увійти</string>
+  <string name="log_into_lastfm_item">Налаштування Last.fm</string>
+  <string name="about_item">Про програму</string>
+  <string name="sort_item">Сортувати</string>
+  <string name="sync_failed">Помилка оновлення</string>
+  <string name="sync_finished">Успішно оновлено</string>
+  <string name="sync_item">Оновити</string>
+  <string name="username_hint">Ім\'я користувача</string>
+  <string name="wrong_username">Неправильне ім\'я користувача</string>
+  <string name="cancel_button_text">Скасувати</string>
+  <string name="login_dialog_title">Увійти до Last.fm</string>
+  <string name="sign_in_button_text">Увійти</string>
+  <string name="no_connection">Немає підключення до інтернету</string>
+  <string name="error_message">Помилка</string>
+  <string name="clear_data_item">Очистити дані</string>
+  <string name="clear_data_fail">Не вдалося очистити дані</string>
+  <string name="erase_confirmation_dialog_title">Ви впевнені?</string>
+  <string name="erase_confirmation_dialog_message">Ви втратите усі дані!</string>
+  <string name="erase_confirmation_dialog_button">Очистити дані</string>
+  <string name="add_artists_to_sync_item">Додати виконавців до оновлень</string>
+  <string name="add_artists_dialog_title">Додати виконавців до оновлень</string>
+  <string name="add_artists_dialog_message">
         Початково, для збереження трафіку, у список виконавців, для яких виконується синхронізація,
         додаються лише топ-50.
         \nОберіть кількість наступних топ-виконавців, аби додати їх до списку.
     </string>
-    <string name="add_artists_dialog_button">Додати</string>
-    <string name="artists_number_selector_hint">Кількість виконавців</string>
-    <string name="no_artists_message">Немає виконавців</string>
-    <string name="no_artists_to_add_message">Немає виконавців</string>
-    <string name="no_user_message">Не обрано користувача Last.fm</string>
-    <string name="operation_failed">Помилка операції</string>
-    <string name="wait_until_sync_finish">Дочекайтеся завершення оновлення</string>
-    <string name="no_data_message">Немає даних</string>
-    <string name="wait_until_erase_finish">Дочекайтеся завершення очищення даних</string>
+  <string name="add_artists_dialog_button">Додати</string>
+  <string name="artists_number_selector_hint">Кількість виконавців</string>
+  <string name="no_artists_message">Немає виконавців</string>
+  <string name="no_artists_to_add_message">Немає виконавців</string>
+  <string name="no_user_message">Не обрано користувача Last.fm</string>
+  <string name="operation_failed">Помилка операції</string>
+  <string name="wait_until_sync_finish">Дочекайтеся завершення оновлення</string>
+  <string name="no_data_message">Немає даних</string>
+  <string name="wait_until_erase_finish">Дочекайтеся завершення очищення даних</string>
 </resources>

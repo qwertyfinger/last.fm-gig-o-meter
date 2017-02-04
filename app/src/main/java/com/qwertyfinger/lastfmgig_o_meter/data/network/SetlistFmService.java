@@ -9,8 +9,8 @@ import rx.Observable;
 
 public interface SetlistFmService {
 
-    String ENDPOINT = "http://api.setlist.fm/rest/0.1/";
+  String ENDPOINT = "http://api.setlist.fm/rest/0.1/";
 
-    @GET("artist/{mbid}/setlists.xml")
-    Observable<SetlistResult> getSetlists(@Path("mbid") String mbid, @Query(value = "p") int page);
+  @GET("artist/{mbid}/setlists.xml") Observable<SetlistResult> getSetlists(
+      @Path("mbid") String mbid, @Query(value = "p") int page);
 }

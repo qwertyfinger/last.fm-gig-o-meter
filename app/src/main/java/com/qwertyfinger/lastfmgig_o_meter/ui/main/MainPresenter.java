@@ -5,22 +5,20 @@ import com.qwertyfinger.lastfmgig_o_meter.ui.base.BasePresenter;
 
 import rx.subscriptions.CompositeSubscription;
 
-@SuppressWarnings("unchecked")
-public class MainPresenter extends BasePresenter<MainMvpView> {
+@SuppressWarnings("unchecked") public class MainPresenter extends BasePresenter<MainMvpView> {
 
-    private final DataManager mDataManager;
-    private CompositeSubscription mCompositeSubscription;
+  private final DataManager mDataManager;
+  private CompositeSubscription mCompositeSubscription;
 
-//    private static final String sRequestTag = "syncData";
+  //    private static final String sRequestTag = "syncData";
 
-    public MainPresenter() {
-        this.mDataManager = DataManager.getInstance();
-        mCompositeSubscription = new CompositeSubscription();
-    }
+  public MainPresenter() {
+    this.mDataManager = DataManager.getInstance();
+    mCompositeSubscription = new CompositeSubscription();
+  }
 
-    @Override
-    public void attachView(MainMvpView mvpView) {
-        super.attachView(mvpView);
+  @Override public void attachView(MainMvpView mvpView) {
+    super.attachView(mvpView);
         /*Observable<?> syncRequest = mDataManager.getCachedRequest(sRequestTag);
         if (syncRequest != null) {
             mCompositeSubscription.add(syncRequest
@@ -34,13 +32,12 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
                         mDataManager.deleteCachedRequest(sRequestTag);
                     }));
         }*/
-    }
+  }
 
-    @Override
-    public void detachView() {
-        super.detachView();
-        if (mCompositeSubscription.hasSubscriptions()) mCompositeSubscription.unsubscribe();
-    }
+  @Override public void detachView() {
+    super.detachView();
+    if (mCompositeSubscription.hasSubscriptions()) mCompositeSubscription.unsubscribe();
+  }
 
     /*public void syncData() {
         Observable<Void> syncRequest = mDataManager.syncData()

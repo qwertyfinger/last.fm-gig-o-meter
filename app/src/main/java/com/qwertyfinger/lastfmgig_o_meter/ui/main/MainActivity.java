@@ -13,64 +13,60 @@ import com.qwertyfinger.lastfmgig_o_meter.util.leak.IMMLeaks;
 
 public class MainActivity extends AppCompatActivity implements MainMvpView {
 
-//    private MainPresenter mPresenter;
-//    private MenuItem mSyncItem;
-//    private ImageView mSyncAnimation;
-//    private Animation mRotation;
+  //    private MainPresenter mPresenter;
+  //    private MenuItem mSyncItem;
+  //    private ImageView mSyncAnimation;
+  //    private Animation mRotation;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
 
-        IMMLeaks.fixFocusedViewLeak(getApplication());
+    IMMLeaks.fixFocusedViewLeak(getApplication());
 
-//        mPresenter = new MainPresenter();
+    //        mPresenter = new MainPresenter();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
 
-        ArtistListFragment mListFragment;
-        if (savedInstanceState != null) {
-            mListFragment = (ArtistListFragment) getSupportFragmentManager().findFragmentByTag("listFragment");
-        } else {
-            mListFragment = new ArtistListFragment();
-        }
-        showFragment(mListFragment, "listFragment");
+    ArtistListFragment mListFragment;
+    if (savedInstanceState != null) {
+      mListFragment =
+          (ArtistListFragment) getSupportFragmentManager().findFragmentByTag("listFragment");
+    } else {
+      mListFragment = new ArtistListFragment();
     }
+    showFragment(mListFragment, "listFragment");
+  }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        mPresenter.detachView();
-    }
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    //        mPresenter.detachView();
+  }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+  }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        mSyncItem = menu.findItem(R.id.sync_item);
-//        mPresenter.attachView(this);
-        return true;
-    }
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_main, menu);
+    //        mSyncItem = menu.findItem(R.id.sync_item);
+    //        mPresenter.attachView(this);
+    return true;
+  }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-//            case R.id.about_item:
-//
-//                return true;
-//            case R.id.sync_item:
-//                mPresenter.syncData();
-//                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      //            case R.id.about_item:
+      //
+      //                return true;
+      //            case R.id.sync_item:
+      //                mPresenter.syncData();
+      //                return true;
+      default:
+        return super.onOptionsItemSelected(item);
     }
+  }
 
     /*@Override
     public void showSyncInProgress() {
@@ -88,14 +84,13 @@ public class MainActivity extends AppCompatActivity implements MainMvpView {
                 isSuccessful ? R.string.sync_finished : R.string.sync_failed, Snackbar.LENGTH_LONG).show();
     }*/
 
-    @Override
-    public void showFragment(Fragment fragment, String tag) {
-        if (!fragment.isInLayout()) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.placeholder, fragment, tag)
-                    .commit();
-        }
+  @Override public void showFragment(Fragment fragment, String tag) {
+    if (!fragment.isInLayout()) {
+      getSupportFragmentManager().beginTransaction()
+          .replace(R.id.placeholder, fragment, tag)
+          .commit();
     }
+  }
 
     /*@SuppressLint("InflateParams")
     private void startSyncAnimation() {

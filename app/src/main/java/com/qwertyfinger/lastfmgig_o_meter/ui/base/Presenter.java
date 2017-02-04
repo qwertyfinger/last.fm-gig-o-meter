@@ -6,7 +6,7 @@ package com.qwertyfinger.lastfmgig_o_meter.ui.base;
  */
 public interface Presenter<V extends MvpView> {
 
-    void attachView(V mvpView);
+  void attachView(V mvpView);
 
-    void detachView();
+  void detachView();
 }

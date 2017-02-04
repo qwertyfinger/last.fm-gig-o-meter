@@ -2,35 +2,38 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      >
 
-            <EditText
-                android:id="@+id/username"
-                android:inputType="textNoSuggestions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/username_hint"
-                android:imeOptions="actionGo"
-                android:imeActionLabel="@string/ime_signin_action_label"/>
+    <EditText
+        android:id="@+id/username"
+        android:inputType="textNoSuggestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/username_hint"
+        android:imeOptions="actionGo"
+        android:imeActionLabel="@string/ime_signin_action_label"
+        />
 
-            <TextView
-                android:id="@+id/errorMessage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:visibility="gone"
-                android:text="@string/wrong_username"/>
+    <TextView
+        android:id="@+id/errorMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/wrong_username"
+        />
 
-        </LinearLayout>
+  </LinearLayout>
 
 </layout>

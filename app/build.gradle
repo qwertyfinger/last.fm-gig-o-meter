@@ -3,104 +3,103 @@ apply plugin: 'me.tatarka.retrolambda'
 
 android {
 
-    def keystorePropertiesFile = rootProject.file("keystore.properties")
-    def keystoreProperties = new Properties()
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+  def keystorePropertiesFile = rootProject.file("keystore.properties")
+  def keystoreProperties = new Properties()
+  keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
-    signingConfigs {
-        release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
+  signingConfigs {
+    release {
+      keyAlias keystoreProperties['keyAlias']
+      keyPassword keystoreProperties['keyPassword']
+      storeFile file(keystoreProperties['storeFile'])
+      storePassword keystoreProperties['storePassword']
     }
+  }
 
-    dataBinding {
-        enabled = true
+  dataBinding {
+    enabled = true
+  }
+
+  compileSdkVersion 25
+  buildToolsVersion "25.0.2"
+  defaultConfig {
+    applicationId "com.qwertyfinger.lastfm_gig_o_meter"
+    minSdkVersion 15
+    targetSdkVersion 25
+    versionCode 1
+    versionName "0.1"
+    buildConfigField "String", "LAST_FM_API_KEY", LAST_FM_API_KEY
+  }
+
+  productFlavors {
+    dev21 {
+      minSdkVersion 21
     }
-
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
-    defaultConfig {
-        applicationId "com.qwertyfinger.lastfm_gig_o_meter"
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 1
-        versionName "0.1"
-        buildConfigField "String", "LAST_FM_API_KEY", LAST_FM_API_KEY
+    prod {
+      minSdkVersion 15
     }
+  }
 
-    productFlavors {
-        dev21 {
-            minSdkVersion 21
-        }
-        prod {
-            minSdkVersion 15
-        }
+  buildTypes {
+    release {
+      debuggable false
+      minifyEnabled true
+      shrinkResources true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      testProguardFile 'proguard-project-test.pro'
+      FileCollection proGuardFileCollection = files { file('./proguard').listFiles() }
+      proguardFiles(proGuardFileCollection.getFiles().toArray())
+      signingConfig signingConfigs.release
     }
-
-    buildTypes {
-        release {
-            debuggable false
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            testProguardFile 'proguard-project-test.pro'
-            FileCollection proGuardFileCollection = files { file('./proguard').listFiles() }
-            proguardFiles(proGuardFileCollection.getFiles().toArray())
-            signingConfig signingConfigs.release
-        }
-        debug {
-            applicationIdSuffix ".debug"
-        }
+    debug {
+      applicationIdSuffix ".debug"
     }
+  }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-        incremental false
-    }
-
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+    incremental false
+  }
 }
 
 retrolambda {
-    incremental false
+  incremental false
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+  compile fileTree(include: ['*.jar'], dir: 'libs')
+  testCompile 'junit:junit:4.12'
 
-    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.5.0'
+  retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.5.0'
 
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+  debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+  releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+  testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
-//    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
-//    androidTestCompile 'com.android.support.test:runner:0.4.1'
-//    androidTestCompile 'com.android.support:support-annotations:23.1.1'
+  //    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+  //    androidTestCompile 'com.android.support.test:runner:0.4.1'
+  //    androidTestCompile 'com.android.support:support-annotations:23.1.1'
 
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:design:25.1.1'
+  compile 'com.android.support:appcompat-v7:25.1.1'
+  compile 'com.android.support:design:25.1.1'
 
-    compile 'com.squareup.sqlbrite:sqlbrite:1.1.1'
-    compile 'io.reactivex:rxjava:1.2.5'
-    compile 'io.reactivex:rxandroid:1.2.1'
+  compile 'com.squareup.sqlbrite:sqlbrite:1.1.1'
+  compile 'io.reactivex:rxjava:1.2.5'
+  compile 'io.reactivex:rxandroid:1.2.1'
 
-//    compile 'org.greenrobot:eventbus:3.0.0'
+  //    compile 'org.greenrobot:eventbus:3.0.0'
 
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+  compile 'com.squareup.picasso:picasso:2.5.2'
+  compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
 
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile 'com.squareup.okio:okio:1.11.0'
+  compile 'com.squareup.okhttp3:okhttp:3.6.0'
+  compile 'com.squareup.okio:okio:1.11.0'
 
-    compile 'com.jakewharton.threetenabp:threetenabp:1.0.4'
+  compile 'com.jakewharton.threetenabp:threetenabp:1.0.4'
 
-    compile 'com.jakewharton.timber:timber:4.5.1'
+  compile 'com.jakewharton.timber:timber:4.5.1'
 
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+  compile 'com.squareup.retrofit2:retrofit:2.1.0'
+  compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 }

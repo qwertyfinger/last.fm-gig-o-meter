@@ -9,72 +9,71 @@ import com.qwertyfinger.lastfmgig_o_meter.util.Utils;
 //TODO: think about implementation of artist page caching
 public class ArtistLastFm {
 
-    private String name;
-    private String mbid;
+  private String name;
+  private String mbid;
 
-    private SimpleArrayMap<String, String> images;
-//    private Target target;
+  private SimpleArrayMap<String, String> images;
+  //    private Target target;
 
-    private Context context;
+  private Context context;
 
-    public ArtistLastFm() {
-        context = Utils.getAppContext();
-    }
+  public ArtistLastFm() {
+    context = Utils.getAppContext();
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getMbid() {
-        return mbid;
-    }
+  public String getMbid() {
+    return mbid;
+  }
 
-    public void setMbid(String mbid) {
-        this.mbid = mbid;
-    }
+  public void setMbid(String mbid) {
+    this.mbid = mbid;
+  }
 
-    public SimpleArrayMap<String, String> getImages() {
-        return images;
-    }
+  public SimpleArrayMap<String, String> getImages() {
+    return images;
+  }
 
-    public void setImages(SimpleArrayMap<String, String> images) {
-        this.images = images;
-    }
+  public void setImages(SimpleArrayMap<String, String> images) {
+    this.images = images;
+  }
 
-    public String getSmallImage() {
-        return images.get("small");
-    }
+  public String getSmallImage() {
+    return images.get("small");
+  }
 
-    public String getMediumImage() {
-        return images.get("medium");
-    }
+  public String getMediumImage() {
+    return images.get("medium");
+  }
 
-    public String getLargeImage() {
-        return images.get("large");
-    }
+  public String getLargeImage() {
+    return images.get("large");
+  }
 
-    public String getExtralargeImage() {
-        return images.get("extralarge");
-    }
+  public String getExtralargeImage() {
+    return images.get("extralarge");
+  }
 
-    public String getMegaImage() {
-        return images.get("mega");
-    }
+  public String getMegaImage() {
+    return images.get("mega");
+  }
 
-    public ArtistDb asArtistDb() {
-        if (mbid == null || name == null) return null;
+  public ArtistDb asArtistDb() {
+    if (mbid == null || name == null) return null;
 
-        ArtistDb artistDb = new ArtistDb();
-        artistDb.setMbid(mbid);
-        artistDb.setName(name);
-        artistDb.setImageUrl(getExtralargeImage());
+    ArtistDb artistDb = new ArtistDb();
+    artistDb.setMbid(mbid);
+    artistDb.setName(name);
+    artistDb.setImageUrl(getExtralargeImage());
 
-
-//        TODO: implement screensize-dependent image choosing
+    //        TODO: implement screensize-dependent image choosing
         /*if (images != null) {
             artistDb.setImageUrl(getExtralargeImage());
             File image = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), mbid + ".jpg");
@@ -87,8 +86,8 @@ public class ArtistLastFm {
             }
         }*/
 
-        return artistDb;
-    }
+    return artistDb;
+  }
 
     /*public ArtistRealm asRealm() {
         ArtistRealm artistRealm = new ArtistRealm();

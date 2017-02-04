@@ -6,7 +6,7 @@ import com.qwertyfinger.lastfmgig_o_meter.ui.base.MvpView;
 
 public interface MainMvpView extends MvpView {
 
-//    void showSyncInProgress();
-//    void endSync(boolean isSuccessful);
-    void showFragment(Fragment fragment, String tag);
+  //    void showSyncInProgress();
+  //    void endSync(boolean isSuccessful);
+  void showFragment(Fragment fragment, String tag);
 }

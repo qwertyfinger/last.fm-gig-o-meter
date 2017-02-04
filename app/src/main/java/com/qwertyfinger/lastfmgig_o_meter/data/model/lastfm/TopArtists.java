@@ -4,32 +4,31 @@ import java.util.List;
 
 public class TopArtists {
 
-    private int totalPages;
-    private int total;
-    private List<ArtistLastFm> artists;
+  private int totalPages;
+  private int total;
+  private List<ArtistLastFm> artists;
 
-    public int getTotalPages() {
-        return totalPages;
-    }
+  public int getTotalPages() {
+    return totalPages;
+  }
 
-    public void setTotalPages(int totalPages) {
-        this.totalPages = totalPages;
-    }
+  public void setTotalPages(int totalPages) {
+    this.totalPages = totalPages;
+  }
 
-    public int getTotal() {
-        return total;
-    }
+  public int getTotal() {
+    return total;
+  }
 
-    public void setTotal(int total) {
-        this.total = total;
-    }
+  public void setTotal(int total) {
+    this.total = total;
+  }
 
-    public List<ArtistLastFm> getArtists() {
-        return artists;
-    }
+  public List<ArtistLastFm> getArtists() {
+    return artists;
+  }
 
-    public void setArtists(List<ArtistLastFm> artists) {
-        this.artists = artists;
-    }
-
+  public void setArtists(List<ArtistLastFm> artists) {
+    this.artists = artists;
+  }
 }

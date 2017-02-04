@@ -26,13 +26,13 @@ import java.util.Locale;
 
 public class ArtistListAdapter extends BaseAdapter {
 
-    private List<ArtistDb> mArtists;
-//    private final WeakReferenceOnListChangedCallback callback = new WeakReferenceOnListChangedCallback(this);
+  private List<ArtistDb> mArtists;
+  //    private final WeakReferenceOnListChangedCallback callback = new WeakReferenceOnListChangedCallback(this);
 
-    public ArtistListAdapter(List<ArtistDb> artists) {
-        mArtists = artists;
-        notifyDataSetChanged();
-    }
+  public ArtistListAdapter(List<ArtistDb> artists) {
+    mArtists = artists;
+    notifyDataSetChanged();
+  }
 
     /*public void setItems(List<ArtistDb> artists) {
         if (mArtists == artists) {
@@ -48,96 +48,94 @@ public class ArtistListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }*/
 
-    @Override
-    public int getCount() {
-        return mArtists.size();
+  @Override public int getCount() {
+    return mArtists.size();
+  }
+
+  @Override public ArtistDb getItem(int position) {
+    return mArtists.get(position);
+  }
+
+  @Override public long getItemId(int position) {
+    return position;
+  }
+
+  @Override public View getView(int position, View convertView, ViewGroup parent) {
+    ItemArtistBinding binding;
+    if (convertView == null) {
+      LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+      binding = ItemArtistBinding.inflate(inflater, parent, false);
+      binding.getRoot().setTag(binding);
+    } else {
+      binding = (ItemArtistBinding) convertView.getTag();
     }
 
-    @Override
-    public ArtistDb getItem(int position) {
-        return mArtists.get(position);
+    binding.setArtist(getItem(position));
+    binding.executePendingBindings();
+
+    return binding.getRoot();
+  }
+
+  @BindingAdapter({ "imageUrl", "error" })
+  public static void loadImage(ImageView imageView, String url, Drawable error) {
+    try {
+      Picasso.with(imageView.getContext())
+          .load(url)
+          .error(error)
+          .config(Bitmap.Config.RGB_565)
+          .resizeDimen(R.dimen.artist_image_size, R.dimen.artist_image_size)
+          .centerCrop()
+          .into(imageView);
+    } catch (IllegalArgumentException e) {
+      Picasso.with(imageView.getContext())
+          .load(R.drawable.no_artist_image)
+          .config(Bitmap.Config.RGB_565)
+          .resizeDimen(R.dimen.artist_image_size, R.dimen.artist_image_size)
+          .centerCrop()
+          .into(imageView);
     }
+  }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
+  @BindingAdapter({ "score", "syncStatus" })
+  public static void setScore(ProgressBar circleBar, double artistScore, int syncStatus) {
+    if (syncStatus == Constants.SYNC_STATUS_HAS_SCORE) {
+      circleBar.setProgress(artistScore > 100 ? 100 : (int) Math.round(artistScore));
+      circleBar.getProgressDrawable()
+          .setColorFilter(Utils.getScoreColor(artistScore), PorterDuff.Mode.SRC_ATOP);
+
+      if (artistScore >= 100) {
+        Animation blink = new AlphaAnimation(1.0f, 0.7f);
+        blink.setDuration(750);
+        blink.setRepeatMode(Animation.REVERSE);
+        blink.setRepeatCount(Animation.INFINITE);
+        circleBar.startAnimation(blink);
+      } else {
+        circleBar.clearAnimation();
+      }
+    } else {
+      circleBar.clearAnimation();
+      circleBar.setProgress(0);
     }
+  }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ItemArtistBinding binding;
-        if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            binding = ItemArtistBinding.inflate(inflater, parent, false);
-            binding.getRoot().setTag(binding);
-        } else {
-            binding = (ItemArtistBinding) convertView.getTag();
-        }
-
-        binding.setArtist(getItem(position));
-        binding.executePendingBindings();
-
-        return binding.getRoot();
+  @BindingAdapter({ "score", "syncStatus" })
+  public static void setScore(TextView textView, double artistScore, int syncStatus) {
+    textView.setTextColor(Utils.getScoreColor(artistScore));
+    if (syncStatus == Constants.SYNC_STATUS_HAS_SCORE) {
+      textView.setText(String.format(Locale.getDefault(), "%d%%",
+          artistScore > 100 ? 100 : (int) Math.round(artistScore)));
+      textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+    } else if (syncStatus == Constants.SYNC_STATUS_NO_INFO) {
+      textView.setText("—");
+      textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+    } else if (syncStatus == Constants.SYNC_STATUS_FAILED) {
+      textView.setText("!");
+      textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 35);
+      textView.setTextColor(Color.parseColor("red"));
+    } else {
+      textView.setText(null);
     }
-
-    @BindingAdapter({"imageUrl", "error"})
-    public static void loadImage(ImageView imageView, String url, Drawable error) {
-        try {
-            Picasso.with(imageView.getContext())
-                    .load(url)
-                    .error(error)
-                    .config(Bitmap.Config.RGB_565)
-                    .resizeDimen(R.dimen.artist_image_size, R.dimen.artist_image_size)
-                    .centerCrop()
-                    .into(imageView);
-        } catch (IllegalArgumentException e) {
-            Picasso.with(imageView.getContext())
-                    .load(R.drawable.no_artist_image)
-                    .config(Bitmap.Config.RGB_565)
-                    .resizeDimen(R.dimen.artist_image_size, R.dimen.artist_image_size)
-                    .centerCrop()
-                    .into(imageView);
-        }
-    }
-
-    @BindingAdapter({"score", "syncStatus"})
-    public static void setScore(ProgressBar circleBar, double artistScore, int syncStatus) {
-        if (syncStatus == Constants.SYNC_STATUS_HAS_SCORE) {
-            circleBar.setProgress(artistScore > 100 ? 100 : (int) Math.round(artistScore));
-            circleBar.getProgressDrawable()
-                    .setColorFilter(Utils.getScoreColor(artistScore), PorterDuff.Mode.SRC_ATOP);
-
-            if (artistScore >= 100) {
-                Animation blink = new AlphaAnimation(1.0f, 0.7f);
-                blink.setDuration(750);
-                blink.setRepeatMode(Animation.REVERSE);
-                blink.setRepeatCount(Animation.INFINITE);
-                circleBar.startAnimation(blink);
-            } else {
-                circleBar.clearAnimation();
-            }
-        } else {
-            circleBar.clearAnimation();
-            circleBar.setProgress(0);
-        }
-    }
-
-    @BindingAdapter({"score", "syncStatus"})
-    public static void setScore(TextView textView, double artistScore, int syncStatus) {
-        textView.setTextColor(Utils.getScoreColor(artistScore));
-        if (syncStatus == Constants.SYNC_STATUS_HAS_SCORE) {
-            textView.setText(String.format(Locale.getDefault(), "%d%%",
-                    artistScore > 100 ? 100 : (int) Math.round(artistScore)));
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        } else if (syncStatus == Constants.SYNC_STATUS_NO_INFO) {
-            textView.setText("—");
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-        } else if (syncStatus == Constants.SYNC_STATUS_FAILED) {
-            textView.setText("!");
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 35);
-            textView.setTextColor(Color.parseColor("red"));
-        } else textView.setText(null);
-    }
+  }
 
     /*private static class WeakReferenceOnListChangedCallback extends ObservableList.OnListChangedCallback<ObservableList<ArtistDb>> {
         final WeakReference<ArtistListAdapter> adapterRef;
@@ -178,13 +176,12 @@ public class ArtistListAdapter extends BaseAdapter {
     }
 
     *//**
-     * Ensures the call was made on the main thread. This is enforced for all ObservableList change
-     * operations.
-     *//*
+   * Ensures the call was made on the main thread. This is enforced for all ObservableList change
+   * operations.
+   *//*
     private static void ensureChangeOnMainThread() {
         if (Thread.currentThread() != Looper.getMainLooper().getThread()) {
             throw new IllegalStateException("You must only modify the ObservableList on the main thread.");
         }
     }*/
-
 }

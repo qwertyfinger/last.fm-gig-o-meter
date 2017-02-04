@@ -9,16 +9,16 @@ import retrofit2.Retrofit;
 
 public class SaxConverterFactory extends Converter.Factory {
 
-    public static SaxConverterFactory create() {
-        return new SaxConverterFactory();
-    }
+  public static SaxConverterFactory create() {
+    return new SaxConverterFactory();
+  }
 
-    private SaxConverterFactory() {}
+  private SaxConverterFactory() {
+  }
 
-    @Override
-    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations,
-                                                            Retrofit retrofit) {
-        return new SaxResponseBodyConverter<>((Class<?>) type);
-    }
-
+  @Override
+  public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations,
+      Retrofit retrofit) {
+    return new SaxResponseBodyConverter<>((Class<?>) type);
+  }
 }

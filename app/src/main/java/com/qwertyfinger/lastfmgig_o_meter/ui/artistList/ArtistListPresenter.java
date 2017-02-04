@@ -14,100 +14,102 @@ import timber.log.Timber;
 
 public class ArtistListPresenter extends BasePresenter<ArtistsListMvpView> {
 
-    private final DataManager mDataManager;
-    private CompositeSubscription mCompositeSubscription;
+  private final DataManager mDataManager;
+  private CompositeSubscription mCompositeSubscription;
 
-    public ArtistListPresenter() {
-        this.mDataManager = DataManager.getInstance();
-        mCompositeSubscription = new CompositeSubscription();
-    }
+  public ArtistListPresenter() {
+    this.mDataManager = DataManager.getInstance();
+    mCompositeSubscription = new CompositeSubscription();
+  }
 
-    @Override
-    public void attachView(ArtistsListMvpView mvpView) {
-        super.attachView(mvpView);
-    }
+  @Override public void attachView(ArtistsListMvpView mvpView) {
+    super.attachView(mvpView);
+  }
 
-    @Override
-    public void detachView() {
-        super.detachView();
-        if (mCompositeSubscription.hasSubscriptions()) mCompositeSubscription.unsubscribe();
-    }
+  @Override public void detachView() {
+    super.detachView();
+    if (mCompositeSubscription.hasSubscriptions()) mCompositeSubscription.unsubscribe();
+  }
 
-    public void setArtistsLimit(int limit) {
-        mDataManager.setArtistsLimit(limit);
-    }
+  public void setArtistsLimit(int limit) {
+    mDataManager.setArtistsLimit(limit);
+  }
 
-    public String getUsername() {
-        return mDataManager.getUsername();
-    }
+  public String getUsername() {
+    return mDataManager.getUsername();
+  }
 
-    public int getArtistsLimit() {
-        return mDataManager.getArtistsLimit();
-    }
+  public int getArtistsLimit() {
+    return mDataManager.getArtistsLimit();
+  }
 
-    public void syncData() {
-        mCompositeSubscription.add(mDataManager.syncData()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(() -> getMvpView().showSyncInProgress())
-                .subscribe(aVoid -> {}, e -> {
-                    getMvpView().endSync(false);
-                    Timber.e(e, e.getClass().getCanonicalName());
-                }, () -> {
-                    displayRankings();
-                    getMvpView().endSync(true);
-                }));
-    }
+  public void syncData() {
+    mCompositeSubscription.add(mDataManager.syncData()
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .doOnSubscribe(() -> getMvpView().showSyncInProgress())
+        .subscribe(aVoid -> {
+        }, e -> {
+          getMvpView().endSync(false);
+          Timber.e(e, e.getClass().getCanonicalName());
+        }, () -> {
+          displayRankings();
+          getMvpView().endSync(true);
+        }));
+  }
 
-    public void syncArtists(List<ArtistDb> artists) {
-        mCompositeSubscription.add(mDataManager.syncArtists(artists)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(() -> getMvpView().showSyncInProgress())
-                .subscribe(aVoid -> {}, e -> {
-                    getMvpView().endSync(false);
-                    Timber.e(e, e.getClass().getCanonicalName());
-                }, () -> {
-                    displayRankings();
-                    getMvpView().endSync(true);
-                }));
-    }
+  public void syncArtists(List<ArtistDb> artists) {
+    mCompositeSubscription.add(mDataManager.syncArtists(artists)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .doOnSubscribe(() -> getMvpView().showSyncInProgress())
+        .subscribe(aVoid -> {
+        }, e -> {
+          getMvpView().endSync(false);
+          Timber.e(e, e.getClass().getCanonicalName());
+        }, () -> {
+          displayRankings();
+          getMvpView().endSync(true);
+        }));
+  }
 
-    public void displayRankings() {
-        mCompositeSubscription.add(mDataManager.getAllArtists()
-                .retry(3)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(artists -> {
-                    getMvpView().displayRankings(artists);
-                }, e -> Timber.e(e, e.getClass().getCanonicalName())));
-    }
+  public void displayRankings() {
+    mCompositeSubscription.add(mDataManager.getAllArtists()
+        .retry(3)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(artists -> {
+          getMvpView().displayRankings(artists);
+        }, e -> Timber.e(e, e.getClass().getCanonicalName())));
+  }
 
-    public void deleteArtist(String name) {
-        mCompositeSubscription.add(mDataManager.deleteArtist(name)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .doOnError(e -> Timber.e(e, e.getClass().getCanonicalName()))
-                .subscribe(aVoid -> {}, e -> getMvpView().showErrorMessage()));
-    }
+  public void deleteArtist(String name) {
+    mCompositeSubscription.add(mDataManager.deleteArtist(name)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .doOnError(e -> Timber.e(e, e.getClass().getCanonicalName()))
+        .subscribe(aVoid -> {
+        }, e -> getMvpView().showErrorMessage()));
+  }
 
-    public Observable<Void> clearData() {
-        return Observable.create(subscriber -> {
-            mCompositeSubscription.add(mDataManager.clearData()
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .doOnSubscribe(() -> getMvpView().showProgressBar())
-                    .doOnError(e -> Timber.e(e, e.getClass().getCanonicalName()))
-                    .subscribe(aVoid -> {}, e -> {
-                        getMvpView().hideProgressBar();
-                        getMvpView().showErrorMessage();
-                        subscriber.onError(e);
-                    }, () -> {
-                        mDataManager.setArtistsLimit(50);
-                        displayRankings();
-                        getMvpView().hideProgressBar();
-                        subscriber.onCompleted();
-                    }));
-        });
-    }
+  public Observable<Void> clearData() {
+    return Observable.create(subscriber -> {
+      mCompositeSubscription.add(mDataManager.clearData()
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribeOn(Schedulers.io())
+          .doOnSubscribe(() -> getMvpView().showProgressBar())
+          .doOnError(e -> Timber.e(e, e.getClass().getCanonicalName()))
+          .subscribe(aVoid -> {
+          }, e -> {
+            getMvpView().hideProgressBar();
+            getMvpView().showErrorMessage();
+            subscriber.onError(e);
+          }, () -> {
+            mDataManager.setArtistsLimit(50);
+            displayRankings();
+            getMvpView().hideProgressBar();
+            subscriber.onCompleted();
+          }));
+    });
+  }
 }

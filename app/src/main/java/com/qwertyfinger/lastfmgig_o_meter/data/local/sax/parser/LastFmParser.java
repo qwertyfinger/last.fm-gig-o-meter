@@ -19,31 +19,29 @@ import java.util.List;
 
 import timber.log.Timber;
 
-@SuppressWarnings("Convert2MethodRef")
-public class LastFmParser<T> extends DefaultHandler {
+@SuppressWarnings("Convert2MethodRef") public class LastFmParser<T> extends DefaultHandler {
 
-    private InputStream mInputStream;
-    private RootElement mRoot;
+  private InputStream mInputStream;
+  private RootElement mRoot;
 
-    private String mImageSize;
+  private String mImageSize;
 
-//    private ArtistLastFm mArtist;
-    private SimpleArrayMap<String, String> mImageMap;
-    private TrackLastFm mTrack;
+  //    private ArtistLastFm mArtist;
+  private SimpleArrayMap<String, String> mImageMap;
+  private TrackLastFm mTrack;
 
-    @SuppressWarnings("unchecked")
-    public T parse(InputStream inputStream, Class<T> responseClass) {
-        this.mInputStream = inputStream;
+  @SuppressWarnings("unchecked") public T parse(InputStream inputStream, Class<T> responseClass) {
+    this.mInputStream = inputStream;
 
-        mRoot = new RootElement("lfm");
+    mRoot = new RootElement("lfm");
 
-        if (responseClass == TrackList.class) {
-            return (T) parseTrackList();
-        }
+    if (responseClass == TrackList.class) {
+      return (T) parseTrackList();
+    }
 
-        if (responseClass == ResponseLastFm.class) {
-            return (T) parseResponse();
-        }
+    if (responseClass == ResponseLastFm.class) {
+      return (T) parseResponse();
+    }
 
         /*if (responseClass == ErrorLastFm.class) {
             return (T) parseError();
@@ -53,8 +51,8 @@ public class LastFmParser<T> extends DefaultHandler {
             return (T) parseTopArtists();
         }*/
 
-        return null;
-    }
+    return null;
+  }
 
     /*private TopArtists parseTopArtists() {
 
@@ -100,84 +98,82 @@ public class LastFmParser<T> extends DefaultHandler {
         return null;
     }*/
 
-    private TrackList parseTrackList() {
-        TrackList result = new TrackList();
-        List<TrackLastFm> trackList = new ArrayList<>();
+  private TrackList parseTrackList() {
+    TrackList result = new TrackList();
+    List<TrackLastFm> trackList = new ArrayList<>();
 
-//        TOP TRACKS
-        Element topTracks = mRoot.getChild("toptracks");
-        Element track = topTracks.getChild("track");
-        Element trackName = track.getChild("name");
-        Element playcount = track.getChild("playcount");
-        Element imageXml = track.getChild("image");
+    //        TOP TRACKS
+    Element topTracks = mRoot.getChild("toptracks");
+    Element track = topTracks.getChild("track");
+    Element trackName = track.getChild("name");
+    Element playcount = track.getChild("playcount");
+    Element imageXml = track.getChild("image");
 
-        Element artist = track.getChild("artist");
-        Element artistName = artist.getChild("name");
-        Element artistId = artist.getChild("mbid");
+    Element artist = track.getChild("artist");
+    Element artistName = artist.getChild("name");
+    Element artistId = artist.getChild("mbid");
 
+    topTracks.setStartElementListener(attributes -> {
+      result.setTotal(Integer.valueOf(attributes.getValue("total")));
+      result.setTotalPages(Integer.valueOf(attributes.getValue("totalPages")));
+    });
+    topTracks.setEndElementListener(() -> result.setTracks(trackList));
 
-        topTracks.setStartElementListener(attributes -> {
-            result.setTotal(Integer.valueOf(attributes.getValue("total")));
-            result.setTotalPages(Integer.valueOf(attributes.getValue("totalPages")));
-        });
-        topTracks.setEndElementListener(() -> result.setTracks(trackList));
+    track.setStartElementListener(attributes -> {
+      mTrack = new TrackLastFm();
+      mTrack.setRank(Integer.valueOf(attributes.getValue("rank")));
+      mImageMap = new SimpleArrayMap<>();
+    });
+    track.setEndElementListener(() -> {
+      mTrack.setArtistImages(mImageMap);
+      trackList.add(mTrack);
+    });
 
-        track.setStartElementListener(attributes -> {
-            mTrack = new TrackLastFm();
-            mTrack.setRank(Integer.valueOf(attributes.getValue("rank")));
-            mImageMap = new SimpleArrayMap<>();
-        });
-        track.setEndElementListener(() -> {
-            mTrack.setArtistImages(mImageMap);
-            trackList.add(mTrack);
-        });
+    trackName.setEndTextElementListener(body -> mTrack.setName(body));
+    playcount.setEndTextElementListener(body -> mTrack.setPlaycount(Integer.valueOf(body)));
+    artistName.setEndTextElementListener(body -> mTrack.setArtistName(body));
+    artistId.setEndTextElementListener(body -> mTrack.setArtistMbid(body));
 
-        trackName.setEndTextElementListener(body -> mTrack.setName(body));
-        playcount.setEndTextElementListener(body -> mTrack.setPlaycount(Integer.valueOf(body)));
-        artistName.setEndTextElementListener(body -> mTrack.setArtistName(body));
-        artistId.setEndTextElementListener(body -> mTrack.setArtistMbid(body));
+    imageXml.setStartElementListener(attributes -> mImageSize = attributes.getValue("size"));
+    imageXml.setEndTextElementListener(body -> mImageMap.put(mImageSize, body));
 
-        imageXml.setStartElementListener(attributes -> mImageSize = attributes.getValue("size"));
-        imageXml.setEndTextElementListener(body -> mImageMap.put(mImageSize, body));
+    //        LOVED TRACKS
+    Element lovedTracks = mRoot.getChild("lovedtracks");
 
+    Element lovedTrack = lovedTracks.getChild("track");
+    Element lovedTrackName = lovedTrack.getChild("name");
 
-//        LOVED TRACKS
-        Element lovedTracks = mRoot.getChild("lovedtracks");
+    Element lovedArtist = lovedTrack.getChild("artist");
+    Element lovedArtistName = lovedArtist.getChild("name");
+    Element lovedArtistId = lovedArtist.getChild("mbid");
 
-        Element lovedTrack = lovedTracks.getChild("track");
-        Element lovedTrackName = lovedTrack.getChild("name");
+    lovedTracks.setStartElementListener(attributes -> {
+      result.setTotal(Integer.valueOf(attributes.getValue("total")));
+      result.setTotalPages(Integer.valueOf(attributes.getValue("totalPages")));
+    });
+    lovedTracks.setEndElementListener(() -> result.setTracks(trackList));
 
-        Element lovedArtist = lovedTrack.getChild("artist");
-        Element lovedArtistName = lovedArtist.getChild("name");
-        Element lovedArtistId = lovedArtist.getChild("mbid");
+    lovedTrack.setStartElementListener(attributes -> {
+      mTrack = new TrackLastFm();
+      mImageMap = new SimpleArrayMap<>();
+    });
+    lovedTrack.setEndElementListener(() -> {
+      mTrack.setArtistImages(mImageMap);
+      trackList.add(mTrack);
+    });
 
-        lovedTracks.setStartElementListener(attributes -> {
-            result.setTotal(Integer.valueOf(attributes.getValue("total")));
-            result.setTotalPages(Integer.valueOf(attributes.getValue("totalPages")));
-        });
-        lovedTracks.setEndElementListener(() -> result.setTracks(trackList));
+    lovedTrackName.setEndTextElementListener(body -> mTrack.setName(body));
+    lovedArtistName.setEndTextElementListener(body -> mTrack.setArtistName(body));
+    lovedArtistId.setEndTextElementListener(body -> mTrack.setArtistMbid(body));
 
-        lovedTrack.setStartElementListener(attributes -> {
-            mTrack = new TrackLastFm();
-            mImageMap = new SimpleArrayMap<>();
-        });
-        lovedTrack.setEndElementListener(() -> {
-            mTrack.setArtistImages(mImageMap);
-            trackList.add(mTrack);
-        });
-
-        lovedTrackName.setEndTextElementListener(body -> mTrack.setName(body));
-        lovedArtistName.setEndTextElementListener(body -> mTrack.setArtistName(body));
-        lovedArtistId.setEndTextElementListener(body -> mTrack.setArtistMbid(body));
-
-        try {
-            Xml.parse(mInputStream, Xml.Encoding.UTF_8, mRoot.getContentHandler());
-            return result;
-        } catch (SAXException | IOException e) {
-            Timber.e(e, e.getClass().getCanonicalName());
-        }
-        return null;
+    try {
+      Xml.parse(mInputStream, Xml.Encoding.UTF_8, mRoot.getContentHandler());
+      return result;
+    } catch (SAXException | IOException e) {
+      Timber.e(e, e.getClass().getCanonicalName());
     }
+    return null;
+  }
 
     /*private ErrorLastFm parseError() {
         ErrorLastFm error = new ErrorLastFm();
@@ -197,16 +193,16 @@ public class LastFmParser<T> extends DefaultHandler {
         return null;
     }*/
 
-    private ResponseLastFm parseResponse() {
-        ResponseLastFm response = new ResponseLastFm();
-        mRoot.setStartElementListener(attributes -> response.setStatus(attributes.getValue("status")));
+  private ResponseLastFm parseResponse() {
+    ResponseLastFm response = new ResponseLastFm();
+    mRoot.setStartElementListener(attributes -> response.setStatus(attributes.getValue("status")));
 
-        try {
-            Xml.parse(mInputStream, Xml.Encoding.UTF_8, mRoot.getContentHandler());
-            return response;
-        } catch (SAXException | IOException e) {
-            Timber.e(e, e.getClass().getCanonicalName());
-        }
-        return null;
+    try {
+      Xml.parse(mInputStream, Xml.Encoding.UTF_8, mRoot.getContentHandler());
+      return response;
+    } catch (SAXException | IOException e) {
+      Timber.e(e, e.getClass().getCanonicalName());
     }
+    return null;
+  }
 }
