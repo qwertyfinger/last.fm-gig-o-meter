@@ -27,7 +27,7 @@ public class DatabaseHelper {
   private final BriteDatabase mDb;
 
   public DatabaseHelper() {
-    mDb = SqlBrite.create(message -> Timber.tag("Database").v(message))
+    mDb = new SqlBrite.Builder().logger(message -> Timber.tag("Database")).build()
         .wrapDatabaseHelper(new DbOpenHelper(Utils.getAppContext()), Schedulers.io());
     if (BuildConfig.DEBUG) mDb.setLoggingEnabled(true);
   }
