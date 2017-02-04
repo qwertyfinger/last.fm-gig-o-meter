@@ -17,7 +17,7 @@ In its work it relies on such great libraries as [Data Binding](https://develope
 
 
 ## Screenshots
-![](https://pp.vk.me/c626424/v626424582/5588b/6WLFVFdBCnM.jpg) ![](https://pp.vk.me/c626424/v626424582/5589b/bC1MARCE9Co.jpg)
+![](https://pp.vk.me/c626424/v626424582/5588b/6WLFVFdBCnM.jpg)![](https://pp.vk.me/c626424/v626424582/5589b/bC1MARCE9Co.jpg)
 ![](https://pp.vk.me/c626424/v626424582/55893/OOvGpwhVBR8.jpg)![](https://pp.vk.me/c626424/v626424582/5587b/HB8jjlseHl4.jpg)
 
 
