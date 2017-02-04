@@ -17,8 +17,8 @@ In its work it relies on such great libraries as [Data Binding](https://develope
 
 
 ## Screenshots ##
-![](https://pp.vk.me/c836438/v836438582/1dbda/m3bASky6hXI.jpg) ![](https://pp.vk.me/c836438/v836438582/1dbe2/jvSO3xEw65w.jpg)
-![](https://pp.vk.me/c836438/v836438582/1dbea/IEZw41mCuqI.jpg)![](https://pp.vk.me/c836438/v836438582/1dbf2/ogzshOe0ixQ.jpg)
+![](https://pp.vk.me/c626424/v626424582/5588b/6WLFVFdBCnM.jpg) ![](https://pp.vk.me/c626424/v626424582/55883/QKWJfwUZN2I.jpg)
+![](https://pp.vk.me/c626424/v626424582/55893/OOvGpwhVBR8.jpg)![](https://pp.vk.me/c626424/v626424582/5587b/HB8jjlseHl4.jpg)
 
 
 <h4>Copyright (c) 2017 Andriy Chubko</h4>
