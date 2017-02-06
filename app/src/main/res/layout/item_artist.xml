@@ -11,7 +11,7 @@
   <data>
     <variable
         name="artist"
-        type="com.qwertyfinger.lastfmgig_o_meter.data.model.db.ArtistDb"
+        type="com.qwertyfinger.lastfm_gig_o_meter.data.model.db.ArtistDb"
         />
   </data>
 

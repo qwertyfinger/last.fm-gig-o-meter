@@ -6,7 +6,7 @@ Download apk [here](https://github.com/qwertyfinger/last.fm-gig-o-meter/raw/mast
 **Future plans:** work is going on creating a full-fledged social app for all your concert activities! *(ETA: late spring)*
 
 ## Idea
-First (as far as I know) algorithm that tries to predict how much you would enjoy a concert by certain artist. It works by comparing artist's songs you listen to with songs this artist plays at gigs.
+First (as far as I know) algorithm that tries to predict how much you would enjoy a concert by a certain artist. It works by comparing artist's songs you listen to with songs this artist plays at gigs.
 
 The necessary data is available thanks to [Last.fm](http://www.last.fm) and [Setlist.fm](http://www.setlist.fm) via their APIs.
 
