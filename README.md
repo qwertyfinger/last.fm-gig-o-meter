@@ -3,7 +3,7 @@ Simple application that lets you discover your 'concert compatibility' with your
 
 Download apk [here](https://github.com/qwertyfinger/last.fm-gig-o-meter/raw/master/last.fm%20gig-o-meter%20v0.1.apk).
 
-**Future plans:** work is going on creating a full-fledged social app for all your concert activities! *(ETA: late spring)*
+**Future plans:** work is going on creating a full-fledged social app for all your concert activities!
 
 ## Idea
 First (as far as I know) algorithm that tries to predict how much you would enjoy a concert by a certain artist. It works by comparing artist's songs you listen to with songs this artist plays at gigs.
@@ -11,8 +11,6 @@ First (as far as I know) algorithm that tries to predict how much you would enjo
 The necessary data is available thanks to [Last.fm](http://www.last.fm) and [Setlist.fm](http://www.setlist.fm) via their APIs.
 
 ## Technical side
-*Warning: code is not production-ready.*
-
 Application utilizes MVP architecture, as described [here](https://github.com/ribot/android-guidelines/blob/master/architecture_guidelines/android_architecture.md).
 
 In its work it relies on such great libraries as [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html), [RxJava](https://github.com/ReactiveX/RxJava), [Retrofit](https://github.com/square/retrofit), [SQLBrite](https://github.com/square/sqlbrite), [Picasso](https://github.com/square/picasso).
