@@ -13,7 +13,7 @@ The necessary data is available thanks to [Last.fm](http://www.last.fm) and [Set
 ## Technical side
 Application utilizes MVP architecture, as described [here](https://github.com/ribot/android-guidelines/blob/master/architecture_guidelines/android_architecture.md).
 
-In its work it relies on such great libraries as [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html), [RxJava](https://github.com/ReactiveX/RxJava), [Retrofit](https://github.com/square/retrofit), [SQLBrite](https://github.com/square/sqlbrite), [Picasso](https://github.com/square/picasso).
+In its work it relies on such libraries as [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html), [RxJava](https://github.com/ReactiveX/RxJava), [Retrofit](https://github.com/square/retrofit), [SQLBrite](https://github.com/square/sqlbrite), [Picasso](https://github.com/square/picasso).
 
 
 ## Screenshots
